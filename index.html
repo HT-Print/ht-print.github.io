@@ -77,6 +77,49 @@ textarea{min-height:84px}
 .back{margin-top:14px}
 footer{padding:16px 0 22px;width:100%}
 @media (max-width:600px){form{grid-template-columns:1fr}#anfrage .lead{font-size:.95rem;margin-bottom:14px}}
+
+html{font-size:clamp(16px,min(.55vw + 8px,1.55vh),24px)}
+body{font-size:1.0625rem}
+.wrap{max-width:min(94vw,96rem)}
+.hero img{width:min(94%,100svh,64rem)}
+.hero p{font-size:1.2rem}
+.down svg{width:3.2rem;height:3.2rem}
+#auswahl{height:100svh;min-height:38rem;padding:1.4rem 0}
+#auswahl>.wrap{flex:1;min-height:0;display:flex;flex-direction:column}
+#auswahl .title{margin-bottom:.4rem;font-size:clamp(1.7rem,2.4vw,3rem)}
+#auswahl .lead{margin-bottom:1rem;font-size:1.05rem}
+.split{flex:1;min-height:0;display:grid;grid-template-columns:1fr 19rem;gap:2.2rem}
+.split .grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr auto;gap:1.1rem}
+.split .tile{aspect-ratio:auto;flex:1;min-height:3.5rem;position:relative}
+.split .tile svg{position:absolute;inset:0;margin:auto;width:auto;max-width:none;height:62%;max-height:11rem}
+.split .card .body{padding:.8rem 1rem 1rem;gap:.25rem;flex:none}
+.split .card h3{font-size:1.25rem}
+.split .card p{font-size:.95rem;line-height:1.35;min-height:2.7em;flex:none}
+.split .card .btn{margin-top:.35rem;padding:.5rem 1.1rem;font-size:.95rem}
+.custom{padding:.9rem 1.2rem;gap:.8rem 1.4rem}
+.custom h3{font-size:1.3rem;margin-bottom:.25rem}
+.custom p{font-size:1rem}
+.info{border-left:1px solid var(--line);padding-left:1.8rem;display:flex;flex-direction:column;justify-content:center}
+.info .price{margin:0;text-align:left}
+.info .price .pl{font-size:1.15rem}
+.info .price .ps{font-size:1rem}
+.info .factors{justify-content:flex-start;gap:.5rem}
+.info .factors li{padding:.4rem .8rem;font-size:1rem}
+.info .vals{grid-template-columns:1fr 1fr;margin:1.8rem 0 0;row-gap:1rem}
+.info .vals li{flex-direction:row;justify-content:flex-start;gap:.6rem;padding:0;border:0;font-size:1.05rem}
+.info .vals svg{width:2rem;height:2rem}
+#anfrage .title{font-size:clamp(1.8rem,2.6vw,2.8rem)}
+form{max-width:min(94vw,46rem)}
+textarea{min-height:5.5rem}
+@media (max-width:899px){
+#auswahl{height:auto;min-height:100svh;padding:1.6rem 0}
+.split{flex:none;grid-template-columns:1fr;gap:1.3rem}
+.split .grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px .5rem;scroll-padding:0 20px}
+.split .grid>*{flex:0 0 74%;scroll-snap-align:start}
+.split .tile{flex:none;height:5rem;min-height:0}
+.custom{flex-direction:column;align-items:flex-start;justify-content:flex-start}
+.info{border-left:0;border-top:1px solid var(--line);padding:1.1rem 0 0}
+}
 </style>
 </head>
 <body>
@@ -96,17 +139,21 @@ footer{padding:16px 0 22px;width:100%}
   <div class="wrap">
     <h2 class="title">Unsere Auswahl</h2>
     <p class="lead">Such dir etwas aus, den Rest klären wir gemeinsam.</p>
-    <div class="grid" id="grid"></div>
+    <div class="split">
+      <div class="grid" id="grid"></div>
+      <aside class="info">
+    <div class="price">
+      <p class="pl">Nach deiner Anfrage melden wir uns bei dir und nennen dir den Preis.</p>
+      <p class="ps">Er hängt ab von</p>
+      <ul class="factors"><li>Druckzeit</li><li>Material</li><li>Größe</li><li>Individualisierung</li></ul>
+    </div>
     <ul class="vals">
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="15" r="3.5"/><circle cx="6" cy="11" r="1.8"/><circle cx="10" cy="7" r="1.8"/><circle cx="14" cy="7" r="1.8"/><circle cx="18" cy="11" r="1.8"/></svg>Robust</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Praktisch</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="var(--bg)"/><circle cx="15" cy="12" r="2" fill="var(--bg)"/><circle cx="8" cy="18" r="2" fill="var(--bg)"/></svg>Individuell</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>Mit Herz</li>
     </ul>
-    <div class="price">
-      <p class="pl">Nach deiner Anfrage melden wir uns bei dir und nennen dir den Preis.</p>
-      <p class="ps">Er hängt ab von</p>
-      <ul class="factors"><li>Druckzeit</li><li>Material</li><li>Größe</li><li>Individualisierung</li></ul>
+      </aside>
     </div>
   </div>
 </section>
@@ -137,7 +184,7 @@ footer{padding:16px 0 22px;width:100%}
       <h2>Danke dir!</h2>
       <p>Schön, dass du bei HT-Print gestöbert hast.</p>
       <p>Schick die vorbereitete Nachricht in deinem E-Mail-Programm noch ab. Danach kümmern wir uns persönlich um deine Anfrage und melden uns mit Preis und Details bei dir.</p>
-      <p>Hat sich kein E-Mail-Programm geöffnet? Schreib uns einfach direkt: <a class="m" href="mailto:erich.lasowski@icloud.com">erich.lasowski@icloud.com</a></p>
+      <p>Hat sich kein E-Mail-Programm geöffnet? Schreib uns einfach direkt: <a class="m" href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
       <p class="sign">Bis bald, das Team von HT-Print</p>
       <button class="btn ghost" type="button" id="again">Noch eine Anfrage</button>
     </div>
@@ -150,7 +197,7 @@ footer{padding:16px 0 22px;width:100%}
 
 
 <script>
-var CONTACT_EMAIL="erich.lasowski@icloud.com";
+var CONTACT_EMAIL="htprints@yahoo.com";
 var P=[
 ["Kotbeutel-Spender","Hängt an der Leine, damit die Beutel immer griffbereit sind.",'<rect x="20" y="26" width="60" height="52" rx="16"/><path d="M36 26v-8a14 14 0 0 1 28 0v8M40 56h20"/>'],
 ["Hundemarke mit Namen","Knochenform mit Name und Nummer.",'<path d="M30 38a10 10 0 1 1 8-14h24a10 10 0 1 1 8 14 10 10 0 1 1-8 14H38a10 10 0 1 1-8-14z" transform="translate(0 8)"/><circle cx="50" cy="50" r="4"/>'],
