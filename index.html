@@ -229,27 +229,98 @@ g.addEventListener("click",function(e){
 });
 document.getElementById("f").addEventListener("submit",function(e){
  e.preventDefault();
+
+ var form=document.getElementById("f");
  var v=function(id){return document.getElementById(id).value.trim()};
- var btn=document.querySelector("#f .submit"),err=document.getElementById("err");
+ var btn=form.querySelector(".submit");
+ var err=document.getElementById("err");
+
+ if(!form.checkValidity()){
+  form.reportValidity();
+  return;
+ }
+
+ var produkt=v("produkt");
+ var name=v("name");
+ var kontakt=v("kontakt");
  var wunsch=v("wunsch")||"(noch offen)";
- var body="Hallo HT-Print-Team,\n\nich interessiere mich für: "+v("produkt")+"\n\nMeine Wünsche:\n"+wunsch+"\n\nErreichbar unter: "+v("kontakt")+"\n\nViele Grüße\n"+v("name");
- var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Anfrage: "+v("produkt"))+"&body="+encodeURIComponent(body);
- var payload={name:v("name"),Produkt:v("produkt"),Wuensche:wunsch,Kontakt:v("kontakt"),_subject:"Neue Anfrage: "+v("produkt"),_template:"table",_captcha:"false"};
- if(v("kontakt").indexOf("@")>0)payload.email=v("kontakt");
- err.hidden=true;btn.disabled=true;btn.textContent="Wird gesendet …";
- fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
- .then(function(r){return r.json()})
- .then(function(d){
-  if(d&&(d.success===true||d.success==="true")){document.getElementById("f").reset();show(true)}
-  else throw new Error("failed");
+
+ var body="Hallo HT-Print-Team,
+
+"+
+  "ich interessiere mich für: "+produkt+"
+
+"+
+  "Meine Wünsche:
+"+wunsch+"
+
+"+
+  "Erreichbar unter: "+kontakt+"
+
+"+
+  "Viele Grüße
+"+name;
+
+ var fallback="mailto:"+CONTACT_EMAIL+
+  "?subject="+encodeURIComponent("Anfrage: "+produkt)+
+  "&body="+encodeURIComponent(body);
+
+ var payload={
+  name:name,
+  Produkt:produkt,
+  Wuensche:wunsch,
+  Kontakt:kontakt,
+  _subject:"Neue Anfrage: "+produkt,
+  _template:"table",
+  _captcha:"false"
+ };
+
+ if(kontakt.indexOf("@")>0)payload.email=kontakt;
+
+ err.hidden=true;
+ btn.disabled=true;
+ btn.textContent="Wird gesendet …";
+
+ fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{
+  method:"POST",
+  headers:{
+   "Content-Type":"application/json",
+   "Accept":"application/json"
+  },
+  body:JSON.stringify(payload)
+ })
+ .then(function(response){
+  if(!response.ok)throw new Error("HTTP "+response.status);
+  return response.text();
+ })
+ .then(function(text){
+  var data;
+  try{data=JSON.parse(text)}catch(ignore){data=null}
+
+  if(data && (data.success===true || data.success==="true")){
+   form.reset();
+   show(true);
+   return;
+  }
+
+  throw new Error("FormSubmit did not confirm success");
  })
  .catch(function(){
   err.innerHTML='Das Senden hat leider nicht geklappt. Bitte versuch es gleich noch einmal oder <a href="'+fallback+'">schreib uns direkt eine E-Mail</a>.';
   err.hidden=false;
  })
- .then(function(){btn.disabled=false;btn.textContent="Anfrage abschicken"});
+ .finally(function(){
+  btn.disabled=false;
+  btn.textContent="Anfrage abschicken";
+ });
 });
-document.getElementById("again").addEventListener("click",function(){document.getElementById("f").reset();show(false)});
+document.getElementById("again").addEventListener("click",function(){
+ var form=document.getElementById("f");
+ form.reset();
+ document.getElementById("err").hidden=true;
+ show(false);
+ document.getElementById("produkt").focus({preventScroll:true});
+});
 </script>
 </body>
 </html>
