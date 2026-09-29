@@ -200,6 +200,7 @@ textarea{min-height:5.5rem}
 
 <script>
 var CONTACT_EMAIL="htprints@yahoo.com";
+var WEB3FORMS_KEY="cdcad9eb-fa60-46a8-8ea4-17d8b15bfbf8";
 var P=[
 ["Kotbeutel-Spender","Hängt an der Leine, damit die Beutel immer griffbereit sind.",'<rect x="20" y="26" width="60" height="52" rx="16"/><path d="M36 26v-8a14 14 0 0 1 28 0v8M40 56h20"/>'],
 ["Hundemarke mit Namen","Knochenform mit Name und Nummer.",'<path d="M30 38a10 10 0 1 1 8-14h24a10 10 0 1 1 8 14 10 10 0 1 1-8 14H38a10 10 0 1 1-8-14z" transform="translate(0 8)"/><circle cx="50" cy="50" r="4"/>'],
@@ -234,20 +235,34 @@ document.getElementById("f").addEventListener("submit",function(e){
  var wunsch=v("wunsch")||"(noch offen)";
  var body="Hallo HT-Print-Team,\n\nich interessiere mich für: "+v("produkt")+"\n\nMeine Wünsche:\n"+wunsch+"\n\nErreichbar unter: "+v("kontakt")+"\n\nViele Grüße\n"+v("name");
  var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Anfrage: "+v("produkt"))+"&body="+encodeURIComponent(body);
- var payload={name:v("name"),Produkt:v("produkt"),Wuensche:wunsch,Kontakt:v("kontakt"),_subject:"Neue Anfrage: "+v("produkt"),_template:"table",_captcha:"false"};
- if(v("kontakt").indexOf("@")>0)payload.email=v("kontakt");
+ var kontakt=v("kontakt");
+ var payload={
+  access_key:WEB3FORMS_KEY,
+  subject:"Neue Anfrage: "+v("produkt"),
+  from_name:v("name")+" via HT-Print",
+  name:v("name"),
+  Produkt:v("produkt"),
+  Wuensche:wunsch,
+  Kontakt:kontakt,
+  message:body
+ };
+ if(kontakt.indexOf("@")>0){payload.email=kontakt;payload.replyto=kontakt}
+ else payload.email=CONTACT_EMAIL;
  err.hidden=true;btn.disabled=true;btn.textContent="Wird gesendet …";
- fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
- .then(function(r){return r.json()})
- .then(function(d){
-  if(d&&(d.success===true||d.success==="true")){document.getElementById("f").reset();show(true)}
+ function done(){btn.disabled=false;btn.textContent="Anfrage abschicken"}
+ function mailFallback(){
+  window.location.href=fallback;
+  err.innerHTML='Das Senden hat leider nicht geklappt. Dein E-Mail-Programm sollte sich mit der Anfrage öffnen — bitte einfach absenden. Sonst schreib uns direkt an <a href="'+fallback+'">'+CONTACT_EMAIL+'</a>.';
+  err.hidden=false;
+  done();
+ }
+ fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
+ .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
+ .then(function(res){
+  if(res.d&&res.d.success===true){document.getElementById("f").reset();show(true);done()}
   else throw new Error("failed");
  })
- .catch(function(){
-  err.innerHTML='Das Senden hat leider nicht geklappt. Bitte versuch es gleich noch einmal oder <a href="'+fallback+'">schreib uns direkt eine E-Mail</a>.';
-  err.hidden=false;
- })
- .then(function(){btn.disabled=false;btn.textContent="Anfrage abschicken"});
+ .catch(mailFallback);
 });
 document.getElementById("again").addEventListener("click",function(){document.getElementById("f").reset();show(false)});
 </script>
