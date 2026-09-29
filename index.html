@@ -60,6 +60,23 @@ textarea{min-height:110px;resize:vertical}
 #thanks a.m{color:var(--or)}
 footer{background:#121212;color:#a3a29d;padding:26px 0 34px;font-size:.92rem;text-align:center;border-top:3px solid var(--or)}
 footer b{color:#fff;font-stretch:125%}
+
+.price{margin-top:38px;text-align:center}.price .pl{font-weight:700;font-size:1.1rem;margin:0 0 6px}.price .ps{margin:0 0 12px;color:var(--muted)}
+.factors{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.factors li{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--or);padding:8px 14px;font-weight:600}
+#anfrage{padding:0;justify-content:space-between}
+#anfrage>.wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:28px;padding-bottom:18px}
+#anfrage .title{margin-bottom:8px;font-size:clamp(1.6rem,4.5vw,2.2rem)}
+#anfrage .lead{margin-bottom:20px}
+form{grid-template-columns:1fr 1fr;gap:12px 16px;max-width:680px}
+form .full{grid-column:1/-1}
+form label{gap:4px}
+form .submit{align-self:end;width:100%}
+input,select,textarea{padding:10px 12px}
+textarea{min-height:84px}
+.back{margin-top:14px}
+footer{padding:16px 0 22px;width:100%}
+@media (max-width:600px){form{grid-template-columns:1fr}#anfrage .lead{font-size:.95rem;margin-bottom:14px}}
 </style>
 </head>
 <body>
@@ -86,7 +103,11 @@ footer b{color:#fff;font-stretch:125%}
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="var(--bg)"/><circle cx="15" cy="12" r="2" fill="var(--bg)"/><circle cx="8" cy="18" r="2" fill="var(--bg)"/></svg>Individuell</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>Mit Herz</li>
     </ul>
-    <p class="note">Preise nennen wir dir persönlich.<br>Sie hängen von Wunsch, Größe und Material ab.</p>
+    <div class="price">
+      <p class="pl">Nach deiner Anfrage melden wir uns bei dir und nennen dir den Preis.</p>
+      <p class="ps">Er hängt ab von</p>
+      <ul class="factors"><li>Druckzeit</li><li>Material</li><li>Größe</li><li>Individualisierung</li></ul>
+    </div>
   </div>
 </section>
 
@@ -102,13 +123,13 @@ footer b{color:#fff;font-stretch:125%}
         <label>Dein Name
           <input id="name" autocomplete="name" required>
         </label>
-        <label>Deine Wünsche
-          <textarea id="wunsch" placeholder="z. B. Name des Hundes, Farbe, Größe, Material – oder beschreib deine eigene Idee"></textarea>
+        <label class="full">Deine Wünsche
+          <textarea id="wunsch" placeholder="z. B. Name des Hundes, Farbe, Größe, Material oder deine eigene Idee"></textarea>
         </label>
         <label>Wie erreichen wir dich? (E-Mail oder Telefon)
           <input id="kontakt" required>
         </label>
-        <button class="btn" type="submit">Anfrage abschicken</button>
+        <button class="btn submit" type="submit">Anfrage abschicken</button>
       </form>
       <p class="back"><a href="#auswahl">Zurück zur Auswahl</a></p>
     </div>
@@ -121,12 +142,12 @@ footer b{color:#fff;font-stretch:125%}
       <button class="btn ghost" type="button" id="again">Noch eine Anfrage</button>
     </div>
   </div>
+  <footer>
+  <div class="wrap"><b>HT-PRINT</b><br>Von Hundebesitzer für Hundebesitzer</div>
+</footer>
 </section>
 </main>
 
-<footer>
-  <div class="wrap"><b>HT-PRINT</b><br>Von Hundebesitzer für Hundebesitzer</div>
-</footer>
 
 <script>
 var CONTACT_EMAIL="erich.lasowski@icloud.com";
