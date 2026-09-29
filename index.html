@@ -120,6 +120,7 @@ textarea{min-height:5.5rem}
 .custom{flex-direction:column;align-items:flex-start;justify-content:flex-start}
 .info{border-left:0;border-top:1px solid var(--line);padding:1.1rem 0 0}
 }
+.err{grid-column:1/-1;margin:0;color:#ffd2b8}.err a{color:var(--or)}
 </style>
 </head>
 <body>
@@ -162,7 +163,7 @@ textarea{min-height:5.5rem}
   <div class="wrap">
     <div id="formbox">
       <h2 class="title">Deine Anfrage</h2>
-      <p class="lead">Sag uns kurz, was du brauchst.<br>Dein E-Mail-Programm öffnet sich mit fertigem Text, du schickst ihn nur noch ab.</p>
+      <p class="lead">Sag uns kurz, was du brauchst.<br>Wir melden uns danach persönlich bei dir.</p>
       <form id="f">
         <label>Was möchtest du haben?
           <select id="produkt" required></select>
@@ -177,14 +178,15 @@ textarea{min-height:5.5rem}
           <input id="kontakt" required>
         </label>
         <button class="btn submit" type="submit">Anfrage abschicken</button>
+        <p class="err" id="err" role="alert" hidden></p>
       </form>
       <p class="back"><a href="#auswahl">Zurück zur Auswahl</a></p>
     </div>
     <div id="thanks" role="status" tabindex="-1">
       <h2>Danke dir!</h2>
       <p>Schön, dass du bei HT-Print gestöbert hast.</p>
-      <p>Schick die vorbereitete Nachricht in deinem E-Mail-Programm noch ab. Danach kümmern wir uns persönlich um deine Anfrage und melden uns mit Preis und Details bei dir.</p>
-      <p>Hat sich kein E-Mail-Programm geöffnet? Schreib uns einfach direkt: <a class="m" href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
+      <p>Deine Anfrage ist bei uns angekommen. Wir kümmern uns persönlich darum und melden uns mit Preis und Details bei dir.</p>
+      <p>Du erreichst uns auch direkt unter <a class="m" href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
       <p class="sign">Bis bald, das Team von HT-Print</p>
       <button class="btn ghost" type="button" id="again">Noch eine Anfrage</button>
     </div>
@@ -228,9 +230,24 @@ g.addEventListener("click",function(e){
 document.getElementById("f").addEventListener("submit",function(e){
  e.preventDefault();
  var v=function(id){return document.getElementById(id).value.trim()};
- var body="Hallo HT-Print-Team,\n\nich interessiere mich für: "+v("produkt")+"\n\nMeine Wünsche:\n"+(v("wunsch")||"(noch offen)")+"\n\nErreichbar unter: "+v("kontakt")+"\n\nViele Grüße\n"+v("name");
- show(true);
- location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Anfrage: "+v("produkt"))+"&body="+encodeURIComponent(body);
+ var btn=document.querySelector("#f .submit"),err=document.getElementById("err");
+ var wunsch=v("wunsch")||"(noch offen)";
+ var body="Hallo HT-Print-Team,\n\nich interessiere mich für: "+v("produkt")+"\n\nMeine Wünsche:\n"+wunsch+"\n\nErreichbar unter: "+v("kontakt")+"\n\nViele Grüße\n"+v("name");
+ var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Anfrage: "+v("produkt"))+"&body="+encodeURIComponent(body);
+ var payload={name:v("name"),Produkt:v("produkt"),Wuensche:wunsch,Kontakt:v("kontakt"),_subject:"Neue Anfrage: "+v("produkt"),_template:"table",_captcha:"false"};
+ if(v("kontakt").indexOf("@")>0)payload.email=v("kontakt");
+ err.hidden=true;btn.disabled=true;btn.textContent="Wird gesendet …";
+ fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
+ .then(function(r){return r.json()})
+ .then(function(d){
+  if(d&&(d.success===true||d.success==="true")){document.getElementById("f").reset();show(true)}
+  else throw new Error("failed");
+ })
+ .catch(function(){
+  err.innerHTML='Das Senden hat leider nicht geklappt. Bitte versuch es gleich noch einmal oder <a href="'+fallback+'">schreib uns direkt eine E-Mail</a>.';
+  err.hidden=false;
+ })
+ .then(function(){btn.disabled=false;btn.textContent="Anfrage abschicken"});
 });
 document.getElementById("again").addEventListener("click",function(){document.getElementById("f").reset();show(false)});
 </script>
