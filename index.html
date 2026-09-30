@@ -87,7 +87,7 @@ body{font-size:1.0625rem}
 #auswahl{height:100svh;min-height:38rem;padding:1.4rem 0}
 #auswahl>.wrap{flex:1;min-height:0;display:flex;flex-direction:column}
 #auswahl .title{margin-bottom:.4rem;font-size:clamp(1.7rem,2.4vw,3rem)}
-#auswahl .lead{margin-bottom:1rem;font-size:1.05rem}
+#auswahl .lead{margin-bottom:1rem;font-size:1.05rem;max-width:64ch}
 .split{flex:1;min-height:0;display:grid;grid-template-columns:1fr 19rem;gap:2.2rem}
 .split .grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr auto;gap:1.1rem}
 .split .tile{aspect-ratio:auto;flex:1;min-height:3.5rem;position:relative}
@@ -120,6 +120,7 @@ textarea{min-height:5.5rem}
 .custom{flex-direction:column;align-items:flex-start;justify-content:flex-start}
 .info{border-left:0;border-top:1px solid var(--line);padding:1.1rem 0 0}
 }
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .err{grid-column:1/-1;margin:0;color:#ffd2b8}.err a{color:var(--or)}
 
 #anfrage form{max-width:min(94vw,62rem);grid-template-columns:1.1fr 1fr;align-items:start}
@@ -134,13 +135,23 @@ textarea{min-height:5.5rem}
 .it b{font-stretch:112%}
 .rm{background:none;border:0;color:#c9c8c3;text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:0}
 .it input{font-size:.92rem;padding:.5rem .6rem}
-.pill{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));z-index:20;background:var(--or);color:#121212;font:700 1rem Archivo,Arial,sans-serif;font-stretch:112%;padding:.8rem 1.3rem;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.35);outline-offset:3px}
-.pill[hidden]{display:none}
 @media (max-width:760px){
 #anfrage form{grid-template-columns:1fr}
 #anfrage form>*:not(.items){grid-column:1}
 .items{grid-column:1;grid-row:auto;max-height:14rem}
-.pill{left:1rem;right:1rem;text-align:center}
+}
+
+.go{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.6rem;text-align:center;transition:background .2s,color .2s}
+.go svg{width:1.2rem;height:1.2rem;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.go.ghost{background:none;color:inherit;border-color:currentColor}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+.go.bump{animation:bump .4s ease}
+@media (prefers-reduced-motion:reduce){.go.bump{animation:none}}
+@media (max-width:899px){
+.go{margin-bottom:1rem}
+.info .vals{grid-template-columns:repeat(4,1fr);margin-top:1.1rem;column-gap:.3rem}
+.info .vals li{flex-direction:column;text-align:center;gap:.3rem;font-size:.8rem}
+.info .vals svg{width:1.7rem;height:1.7rem}
 }
 </style>
 </head>
@@ -164,6 +175,7 @@ textarea{min-height:5.5rem}
     <div class="split">
       <div class="grid" id="grid"></div>
       <aside class="info">
+        <a class="btn go ghost" id="go" href="#anfrage"><span id="goT">Weiter zur Anfrage</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a>
     <div class="price">
       <p class="pl">Nach deiner Anfrage melden wir uns bei dir und nennen dir den Preis.</p>
       <p class="ps">Er hängt ab von</p>
@@ -192,14 +204,16 @@ textarea{min-height:5.5rem}
           <ul id="items" hidden></ul>
         </div>
         <label>Dein Name
-          <input id="name" autocomplete="name" required>
+          <input id="name" autocomplete="name" maxlength="60" required>
         </label>
         <label>Wie erreichen wir dich? (E-Mail oder Telefon)
-          <input id="kontakt" required>
+          <input id="kontakt" maxlength="80" required>
         </label>
         <label>Weitere Anmerkungen (optional)
-          <textarea id="wunsch" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea>
+          <textarea id="wunsch" maxlength="600" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea>
         </label>
+        <div class="hp" aria-hidden="true"><label>Website<input id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
         <button class="btn submit" type="submit">Anfrage abschicken</button>
         <p class="err" id="err" role="alert" hidden></p>
       </form>
@@ -220,10 +234,10 @@ textarea{min-height:5.5rem}
 </section>
 </main>
 
-<a class="pill" id="pill" href="#anfrage" hidden>Zur Anfrage (<span id="cnt">0</span>)</a>
 
-
+<script src="https://web3forms.com/client/script.js" async defer></script>
 <script>
+var LOADED=Date.now();
 var CONTACT_EMAIL="htprints@yahoo.com";
 var WEB3FORMS_KEY="cdcad9eb-fa60-46a8-8ea4-17d8b15bfbf8";
 var P=[
@@ -246,22 +260,22 @@ function show(showThanks){
  if(showThanks)t.focus({preventScroll:true});
 }
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
-var pill=document.getElementById("pill"),inForm=false;
-function updatePill(){pill.hidden=!(items.length>0)||inForm}
-if("IntersectionObserver" in window){new IntersectionObserver(function(en){inForm=en[0].isIntersecting;updatePill()},{threshold:.4}).observe(document.getElementById("anfrage"))}
 function render(){
  var ul=document.getElementById("items"),n=items.length;
- document.getElementById("cnt").textContent=n;
+ var go=document.getElementById("go");
+ document.getElementById("goT").textContent="Weiter zur Anfrage"+(n?" ("+n+")":"");
+ go.classList.toggle("ghost",n===0);
  document.getElementById("itemsH").textContent="Deine Auswahl"+(n?" ("+n+")":"");
  document.getElementById("empty").hidden=n>0;
  ul.hidden=n===0;
- ul.innerHTML=items.map(function(it,i){return '<li class="it"><div class="it-top"><b>'+esc(it.name)+'</b><button type="button" class="rm" data-rm="'+i+'" aria-label="'+esc(it.name)+' entfernen">Entfernen</button></div><input data-w="'+i+'" value="'+esc(it.wish)+'" placeholder="'+(it.name===EIGEN?"Beschreib uns deine Idee":"Wünsche, z. B. Name, Farbe, Größe")+'" aria-label="Wünsche für '+esc(it.name)+'"></li>'}).join("");
- updatePill();
+ ul.innerHTML=items.map(function(it,i){return '<li class="it"><div class="it-top"><b>'+esc(it.name)+'</b><button type="button" class="rm" data-rm="'+i+'" aria-label="'+esc(it.name)+' entfernen">Entfernen</button></div><input data-w="'+i+'" maxlength="300" value="'+esc(it.wish)+'" placeholder="'+(it.name===EIGEN?"Beschreib uns deine Idee":"Wünsche, z. B. Name, Farbe, Größe")+'" aria-label="Wünsche für '+esc(it.name)+'"></li>'}).join("");
 }
 g.addEventListener("click",function(e){
  var b=e.target.closest("button[data-i]");if(!b)return;
+ if(items.length>=10){b.textContent="Maximal 10";return}
  items.push({name:b.dataset.i==="custom"?EIGEN:P[b.dataset.i][0],wish:""});
  render();
+ var go=document.getElementById("go");go.classList.remove("bump");void go.offsetWidth;go.classList.add("bump");
  var old=b.dataset.t||(b.dataset.t=b.textContent);
  b.textContent="Hinzugefügt";
  clearTimeout(b._t);b._t=setTimeout(function(){b.textContent=old},1600);
@@ -281,6 +295,16 @@ document.getElementById("f").addEventListener("submit",function(e){
  var n=items.length;
  var list=items.map(function(it,i){return (i+1)+". "+it.name+" – "+(it.wish.trim()||"(keine Wünsche angegeben)")}).join("\n");
  var note=v("wunsch"),kontakt=v("kontakt"),name=v("name");
+ function fail(msg){err.innerHTML=msg;err.hidden=false}
+ if(v("website")||Date.now()-LOADED<4000){items=[];render();document.getElementById("f").reset();show(true);return}
+ var LINK=/https?:\/\/|www\./i;
+ if([name,note].concat(items.map(function(it){return it.wish})).some(function(t){return LINK.test(t)})){fail("Bitte lass Links aus dem Text weg.");return}
+ var okMail=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(kontakt),okTel=/^[\d\s+()\/.-]{6,}$/.test(kontakt)&&kontakt.replace(/\D/g,"").length>=6;
+ if(!okMail&&!okTel){fail("Bitte gib eine gültige E-Mail-Adresse oder Telefonnummer an.");return}
+ try{var sentL=JSON.parse(localStorage.getItem("htp_sent")||"[]").filter(function(t){return Date.now()-t<864e5});
+  if((sentL.length&&Date.now()-sentL[sentL.length-1]<30000)||sentL.length>=5){fail('Du hast gerade schon eine Anfrage geschickt. Bitte versuch es später noch einmal oder schreib uns direkt an <a href="mailto:'+CONTACT_EMAIL+'">'+CONTACT_EMAIL+'</a>.');return}}catch(x){}
+ var capEl=document.querySelector('#f [name="h-captcha-response"]'),token=capEl?capEl.value:"";
+ if(capEl&&!token){fail("Bitte bestätige kurz, dass du kein Roboter bist.");return}
  var subject=n===1?"Neue Anfrage: "+items[0].name:"Neue Anfrage: "+n+" Produkte";
  var body="Hallo HT-Print-Team,\n\nich möchte gern folgende Produkte anfragen:\n\n"+list+"\n\n"+(note?"Weitere Anmerkungen:\n"+note+"\n\n":"")+"Erreichbar unter: "+kontakt+"\n\nViele Grüße\n"+name;
  var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
@@ -294,10 +318,11 @@ document.getElementById("f").addEventListener("submit",function(e){
   Kontakt:kontakt,
   message:body
  };
+ if(token)payload["h-captcha-response"]=token;
  if(kontakt.indexOf("@")>0){payload.email=kontakt;payload.replyto=kontakt}
  else payload.email=CONTACT_EMAIL;
  err.hidden=true;btn.disabled=true;btn.textContent="Wird gesendet …";
- function done(){btn.disabled=false;btn.textContent="Anfrage abschicken"}
+ function done(){btn.disabled=false;btn.textContent="Anfrage abschicken";try{hcaptcha.reset()}catch(x){}}
  function mailFallback(){
   window.location.href=fallback;
   err.innerHTML='Das Senden hat leider nicht geklappt. Dein E-Mail-Programm sollte sich mit der Anfrage öffnen — bitte einfach absenden. Sonst schreib uns direkt an <a href="'+fallback+'">'+CONTACT_EMAIL+'</a>.';
@@ -307,7 +332,7 @@ document.getElementById("f").addEventListener("submit",function(e){
  fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
  .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
  .then(function(res){
-  if(res.d&&res.d.success===true){items=[];render();document.getElementById("f").reset();show(true);done()}
+  if(res.d&&res.d.success===true){try{var sl=JSON.parse(localStorage.getItem("htp_sent")||"[]");sl.push(Date.now());localStorage.setItem("htp_sent",JSON.stringify(sl.slice(-10)))}catch(x){}items=[];render();document.getElementById("f").reset();show(true);done()}
   else throw new Error("failed");
  })
  .catch(mailFallback);
