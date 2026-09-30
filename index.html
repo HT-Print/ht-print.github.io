@@ -89,7 +89,8 @@ body{font-size:1.0625rem}
 #auswahl .title{margin-bottom:.4rem;font-size:clamp(1.7rem,2.4vw,3rem)}
 #auswahl .lead{margin-bottom:1rem;font-size:1.05rem;max-width:64ch}
 .split{flex:1;min-height:0;display:grid;grid-template-columns:1fr 19rem;gap:2.2rem}
-.split .grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr auto;gap:1.1rem}
+.split .grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr 1fr;gap:1.1rem}
+.split .custom{grid-column:span 2}
 .split .tile{aspect-ratio:auto;flex:1;min-height:3.5rem;position:relative}
 .split .tile svg{position:absolute;inset:0;margin:auto;width:auto;max-width:none;height:62%;max-height:11rem}
 .split .card .body{padding:.8rem 1rem 1rem;gap:.25rem;flex:none}
@@ -153,6 +154,32 @@ textarea{min-height:5.5rem}
 .info .vals li{flex-direction:column;text-align:center;gap:.3rem;font-size:.8rem}
 .info .vals svg{width:1.7rem;height:1.7rem}
 }
+@media (min-width:900px) and (max-height:720px){
+#auswahl{padding:1rem 0}
+#auswahl .lead{margin-bottom:.6rem}
+.split .card .body{padding:.55rem .8rem .7rem}
+.split .card h3{font-size:1.05rem}
+.split .card p{font-size:.85rem}
+.split .card .btn{padding:.35rem .9rem;margin-top:.2rem}
+.split .tile{min-height:2.4rem}
+.custom{padding:.6rem 1rem}
+}
+@media (min-width:1300px){
+.split .grid{grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr}
+.split .custom{grid-column:auto;flex-direction:column;flex-wrap:nowrap;align-items:flex-start;justify-content:space-between;padding:1.1rem 1.1rem 1.2rem}
+.split .card h3{font-size:1.1rem}
+.custom h3{font-size:1.15rem}
+.custom p{font-size:.9rem}
+.split .card .body{min-height:12rem}
+.split .card p{min-height:4.1em}
+.split .card .btn{margin-top:auto}
+}
+@media (min-width:900px){#auswahl{min-height:49rem}}
+@media (min-width:1300px){#auswahl{min-height:45rem}}
+@media (min-width:1000px) and (max-width:1099px){#auswahl{min-height:53rem}}
+@media (min-width:900px) and (max-width:999px){#auswahl{min-height:63rem}}
+.pr{font-weight:800;font-stretch:112%;font-size:1.02rem;margin-top:.3rem}
+.pr .ast{margin-left:.1em}
 </style>
 </head>
 <body>
@@ -176,9 +203,9 @@ textarea{min-height:5.5rem}
       <div class="grid" id="grid"></div>
       <aside class="info">
         <a class="btn go ghost" id="go" href="#anfrage"><span id="goT">Weiter zur Anfrage</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a>
-    <div class="price">
-      <p class="pl">Nach deiner Anfrage melden wir uns bei dir und nennen dir den Preis.</p>
-      <p class="ps">Er hängt ab von</p>
+    <div class="price" id="preishinweis">
+      <p class="pl">* Nach deiner Anfrage melden wir uns bei dir und nennen dir den genauen Preis.</p>
+      <p class="ps">Die Preise oben sind Ab-Preise. Der Endpreis hängt ab von</p>
       <ul class="factors"><li>Druckzeit</li><li>Material</li><li>Größe</li><li>Individualisierung</li></ul>
     </div>
     <ul class="vals">
@@ -241,16 +268,17 @@ var LOADED=Date.now();
 var CONTACT_EMAIL="htprints@yahoo.com";
 var WEB3FORMS_KEY="cdcad9eb-fa60-46a8-8ea4-17d8b15bfbf8";
 var P=[
-["Kotbeutel-Spender","Hängt an der Leine, damit die Beutel immer griffbereit sind.",'<rect x="20" y="26" width="60" height="52" rx="16"/><path d="M36 26v-8a14 14 0 0 1 28 0v8M40 56h20"/>'],
-["Hundemarke mit Namen","Knochenform mit Name und Nummer.",'<path d="M30 38a10 10 0 1 1 8-14h24a10 10 0 1 1 8 14 10 10 0 1 1-8 14H38a10 10 0 1 1-8-14z" transform="translate(0 8)"/><circle cx="50" cy="50" r="4"/>'],
-["Leckerli-Dose","Kleine Dose mit Deckel für die Gassi-Tasche.",'<rect x="24" y="36" width="52" height="46" rx="6"/><rect x="20" y="22" width="60" height="14" rx="5"/><path d="M40 56h20"/>'],
-["Napf-Ständer","Hebt den Napf auf eine angenehme Höhe.",'<path d="M20 44h60l-8 14H28zM32 58l-6 26M68 58l6 26M50 58v26"/>'],
-["Leinen-Wandhaken","Damit die Leine an der Tür immer am gleichen Platz hängt.",'<rect x="30" y="16" width="40" height="66" rx="8"/><path d="M50 40v22a10 10 0 0 0 20 0v-6"/><circle cx="50" cy="28" r="3"/>'],
-["Pfoten-Schlüsselanhänger","Pfotenabdruck als Geschenk oder für den eigenen Schlüsselbund.",'<circle cx="50" cy="64" r="15"/><circle cx="26" cy="46" r="7"/><circle cx="40" cy="30" r="7"/><circle cx="60" cy="30" r="7"/><circle cx="74" cy="46" r="7"/>']
+["Kotbeutel-Spender","Hängt an der Leine, damit die Beutel immer griffbereit sind.",'<rect x="20" y="26" width="60" height="52" rx="16"/><path d="M36 26v-8a14 14 0 0 1 28 0v8M40 56h20"/>',"ab 5 €"],
+["Hundemarke mit Namen","Knochenform mit Name und Nummer.",'<path d="M30 38a10 10 0 1 1 8-14h24a10 10 0 1 1 8 14 10 10 0 1 1-8 14H38a10 10 0 1 1-8-14z" transform="translate(0 8)"/><circle cx="50" cy="50" r="4"/>',"ab 3 €"],
+["Leckerli-Dose","Kleine Dose mit Deckel für die Gassi-Tasche.",'<rect x="24" y="36" width="52" height="46" rx="6"/><rect x="20" y="22" width="60" height="14" rx="5"/><path d="M40 56h20"/>',"ab 6 €"],
+["Napf-Ständer","Hebt den Napf auf eine angenehme Höhe.",'<path d="M20 44h60l-8 14H28zM32 58l-6 26M68 58l6 26M50 58v26"/>',"ab 5 €"],
+["Leinen-Wandhaken","Damit die Leine an der Tür immer am gleichen Platz hängt.",'<rect x="30" y="16" width="40" height="66" rx="8"/><path d="M50 40v22a10 10 0 0 0 20 0v-6"/><circle cx="50" cy="28" r="3"/>',"ab 4 €"],
+["Alltags-Gadgets","Kleine, praktische Helfer für den Alltag, z. B. Leinenhalter für den Kinderwagen.",'<path d="M30 70L62 38"/><path d="M62 38Q58 26 68 20Q74 17 80 19L71 28L73 33L78 35L87 26Q89 32 86 38Q80 48 68 44Z"/><path d="M30 70Q26 66 22 70L16 76Q14 82 20 84Q26 86 30 80L36 74Q34 70 30 70Z"/><path d="M24 30L38 44"/><path d="M18 24L24 18L32 26L26 32Z"/><path d="M42 48L72 78Q76 84 82 78Q86 72 80 68L50 40"/>',"Preis auf Anfrage"],
+["Deko & Figuren","Figuren und andere Deko nach deinem Wunsch.",'<path d="M34 33Q50 24 66 33Q71 50 70 62Q66 84 50 84Q34 84 30 62Q29 50 34 33Z"/><path d="M34 33Q12 28 12 52Q12 68 27 70L30 62"/><path d="M66 33Q88 28 88 52Q88 68 73 70L70 62"/><circle cx="41" cy="50" r="1.2"/><circle cx="59" cy="50" r="1.2"/><path d="M44 60H56Q56 67 50 70Q44 67 44 60Z"/><path d="M50 70V75M50 75Q44 79 40 75M50 75Q56 79 60 75"/>',"Preis auf Anfrage"]
 ];
 var g=document.getElementById("grid"),EIGEN="Eigene Idee",items=[];
 P.forEach(function(p,i){
- g.insertAdjacentHTML("beforeend",'<article class="card"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div><div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><button class="btn sm" type="button" data-i="'+i+'">Hinzufügen</button></div></article>');
+ g.insertAdjacentHTML("beforeend",'<article class="card"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div><div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><div class="pr">'+p[3]+(p[3].indexOf("ab")===0?'<span class="ast" aria-hidden="true">*</span>':"")+'</div><button class="btn sm" type="button" data-i="'+i+'">Hinzufügen</button></div></article>');
 });
 g.insertAdjacentHTML("beforeend",'<div class="custom"><div><h3>Du hast eine eigene Idee?</h3><p>Etwas, das es hier nicht gibt, oder eine Anpassung? Beschreib uns, was du brauchst, dann schauen wir, was möglich ist.</p></div><button class="btn" type="button" data-i="custom">Eigene Idee hinzufügen</button></div>');
 function show(showThanks){
