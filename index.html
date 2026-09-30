@@ -121,6 +121,27 @@ textarea{min-height:5.5rem}
 .info{border-left:0;border-top:1px solid var(--line);padding:1.1rem 0 0}
 }
 .err{grid-column:1/-1;margin:0;color:#ffd2b8}.err a{color:var(--or)}
+
+#anfrage form{max-width:min(94vw,62rem);grid-template-columns:1.1fr 1fr;align-items:start}
+#anfrage form>*:not(.items){grid-column:2}
+.items{grid-column:1;grid-row:1/span 6;align-self:stretch;background:#1a1a1a;border:1px solid #333;border-left:4px solid var(--or);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.6rem;max-height:21rem;min-height:9rem}
+.items-h{margin:0;font-weight:700;font-stretch:112%}
+#empty{margin:0;color:#c9c8c3}#empty a{color:var(--or)}
+#items{list-style:none;margin:0;padding:0;overflow:auto;display:grid;gap:.6rem;align-content:start}
+#items[hidden],#empty[hidden]{display:none}
+.it{background:#242424;padding:.6rem .7rem;display:grid;gap:.4rem}
+.it-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem}
+.it b{font-stretch:112%}
+.rm{background:none;border:0;color:#c9c8c3;text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:0}
+.it input{font-size:.92rem;padding:.5rem .6rem}
+.pill{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));z-index:20;background:var(--or);color:#121212;font:700 1rem Archivo,Arial,sans-serif;font-stretch:112%;padding:.8rem 1.3rem;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.35);outline-offset:3px}
+.pill[hidden]{display:none}
+@media (max-width:760px){
+#anfrage form{grid-template-columns:1fr}
+#anfrage form>*:not(.items){grid-column:1}
+.items{grid-column:1;grid-row:auto;max-height:14rem}
+.pill{left:1rem;right:1rem;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -139,7 +160,7 @@ textarea{min-height:5.5rem}
 <section class="screen" id="auswahl">
   <div class="wrap">
     <h2 class="title">Unsere Auswahl</h2>
-    <p class="lead">Such dir etwas aus, den Rest klären wir gemeinsam.</p>
+    <p class="lead">Such dir etwas aus, auch mehrere Produkte auf einmal sind möglich.</p>
     <div class="split">
       <div class="grid" id="grid"></div>
       <aside class="info">
@@ -165,22 +186,24 @@ textarea{min-height:5.5rem}
       <h2 class="title">Deine Anfrage</h2>
       <p class="lead">Sag uns kurz, was du brauchst.<br>Wir melden uns danach persönlich bei dir.</p>
       <form id="f">
-        <label>Was möchtest du haben?
-          <select id="produkt" required></select>
-        </label>
+        <div class="items">
+          <p class="items-h" id="itemsH">Deine Auswahl</p>
+          <p id="empty">Noch nichts ausgewählt. <a href="#auswahl">Zur Auswahl</a></p>
+          <ul id="items" hidden></ul>
+        </div>
         <label>Dein Name
           <input id="name" autocomplete="name" required>
-        </label>
-        <label class="full">Deine Wünsche
-          <textarea id="wunsch" placeholder="z. B. Name des Hundes, Farbe, Größe, Material oder deine eigene Idee"></textarea>
         </label>
         <label>Wie erreichen wir dich? (E-Mail oder Telefon)
           <input id="kontakt" required>
         </label>
+        <label>Weitere Anmerkungen (optional)
+          <textarea id="wunsch" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea>
+        </label>
         <button class="btn submit" type="submit">Anfrage abschicken</button>
         <p class="err" id="err" role="alert" hidden></p>
       </form>
-      <p class="back"><a href="#auswahl">Zurück zur Auswahl</a></p>
+      <p class="back"><a href="#auswahl">Weitere Produkte hinzufügen</a></p>
     </div>
     <div id="thanks" role="status" tabindex="-1">
       <h2>Danke dir!</h2>
@@ -197,6 +220,8 @@ textarea{min-height:5.5rem}
 </section>
 </main>
 
+<a class="pill" id="pill" href="#anfrage" hidden>Zur Anfrage (<span id="cnt">0</span>)</a>
+
 
 <script>
 var CONTACT_EMAIL="htprints@yahoo.com";
@@ -209,40 +234,63 @@ var P=[
 ["Leinen-Wandhaken","Damit die Leine an der Tür immer am gleichen Platz hängt.",'<rect x="30" y="16" width="40" height="66" rx="8"/><path d="M50 40v22a10 10 0 0 0 20 0v-6"/><circle cx="50" cy="28" r="3"/>'],
 ["Pfoten-Schlüsselanhänger","Pfotenabdruck als Geschenk oder für den eigenen Schlüsselbund.",'<circle cx="50" cy="64" r="15"/><circle cx="26" cy="46" r="7"/><circle cx="40" cy="30" r="7"/><circle cx="60" cy="30" r="7"/><circle cx="74" cy="46" r="7"/>']
 ];
-var g=document.getElementById("grid"),sel=document.getElementById("produkt"),EIGEN="Etwas ganz Eigenes";
+var g=document.getElementById("grid"),EIGEN="Eigene Idee",items=[];
 P.forEach(function(p,i){
- g.insertAdjacentHTML("beforeend",'<article class="card"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div><div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><button class="btn sm" type="button" data-i="'+i+'">Anfragen</button></div></article>');
- sel.add(new Option(p[0],p[0]));
+ g.insertAdjacentHTML("beforeend",'<article class="card"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div><div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><button class="btn sm" type="button" data-i="'+i+'">Hinzufügen</button></div></article>');
 });
-sel.add(new Option(EIGEN,EIGEN));
-g.insertAdjacentHTML("beforeend",'<div class="custom"><div><h3>Du hast eine eigene Idee?</h3><p>Etwas, das es hier nicht gibt, oder eine Anpassung? Beschreib uns, was du brauchst, dann schauen wir, was möglich ist.</p></div><button class="btn" type="button" data-i="custom">Eigene Idee anfragen</button></div>');
+g.insertAdjacentHTML("beforeend",'<div class="custom"><div><h3>Du hast eine eigene Idee?</h3><p>Etwas, das es hier nicht gibt, oder eine Anpassung? Beschreib uns, was du brauchst, dann schauen wir, was möglich ist.</p></div><button class="btn" type="button" data-i="custom">Eigene Idee hinzufügen</button></div>');
 function show(showThanks){
  document.getElementById("formbox").style.display=showThanks?"none":"";
  var t=document.getElementById("thanks");t.style.display=showThanks?"block":"none";
  document.getElementById("anfrage").scrollIntoView();
  if(showThanks)t.focus({preventScroll:true});
 }
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+var pill=document.getElementById("pill"),inForm=false;
+function updatePill(){pill.hidden=!(items.length>0)||inForm}
+if("IntersectionObserver" in window){new IntersectionObserver(function(en){inForm=en[0].isIntersecting;updatePill()},{threshold:.4}).observe(document.getElementById("anfrage"))}
+function render(){
+ var ul=document.getElementById("items"),n=items.length;
+ document.getElementById("cnt").textContent=n;
+ document.getElementById("itemsH").textContent="Deine Auswahl"+(n?" ("+n+")":"");
+ document.getElementById("empty").hidden=n>0;
+ ul.hidden=n===0;
+ ul.innerHTML=items.map(function(it,i){return '<li class="it"><div class="it-top"><b>'+esc(it.name)+'</b><button type="button" class="rm" data-rm="'+i+'" aria-label="'+esc(it.name)+' entfernen">Entfernen</button></div><input data-w="'+i+'" value="'+esc(it.wish)+'" placeholder="'+(it.name===EIGEN?"Beschreib uns deine Idee":"Wünsche, z. B. Name, Farbe, Größe")+'" aria-label="Wünsche für '+esc(it.name)+'"></li>'}).join("");
+ updatePill();
+}
 g.addEventListener("click",function(e){
  var b=e.target.closest("button[data-i]");if(!b)return;
- sel.value=b.dataset.i==="custom"?EIGEN:P[b.dataset.i][0];
- show(false);
- document.getElementById("name").focus({preventScroll:true});
+ items.push({name:b.dataset.i==="custom"?EIGEN:P[b.dataset.i][0],wish:""});
+ render();
+ var old=b.dataset.t||(b.dataset.t=b.textContent);
+ b.textContent="Hinzugefügt";
+ clearTimeout(b._t);b._t=setTimeout(function(){b.textContent=old},1600);
 });
+var ul=document.getElementById("items");
+ul.addEventListener("input",function(e){var i=e.target.dataset.w;if(i!==undefined)items[i].wish=e.target.value});
+ul.addEventListener("click",function(e){var b=e.target.closest("[data-rm]");if(!b)return;items.splice(+b.dataset.rm,1);render()});
+document.querySelector("#f .submit").addEventListener("click",function(e){
+ if(!items.length){e.preventDefault();var er=document.getElementById("err");er.innerHTML='Bitte wähle zuerst mindestens ein Produkt in der <a href="#auswahl">Auswahl</a> aus.';er.hidden=false}
+});
+render();
 document.getElementById("f").addEventListener("submit",function(e){
  e.preventDefault();
  var v=function(id){return document.getElementById(id).value.trim()};
  var btn=document.querySelector("#f .submit"),err=document.getElementById("err");
- var wunsch=v("wunsch")||"(noch offen)";
- var body="Hallo HT-Print-Team,\n\nich interessiere mich für: "+v("produkt")+"\n\nMeine Wünsche:\n"+wunsch+"\n\nErreichbar unter: "+v("kontakt")+"\n\nViele Grüße\n"+v("name");
- var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Anfrage: "+v("produkt"))+"&body="+encodeURIComponent(body);
- var kontakt=v("kontakt");
+ if(!items.length){err.innerHTML='Bitte wähle zuerst mindestens ein Produkt in der <a href="#auswahl">Auswahl</a> aus.';err.hidden=false;return}
+ var n=items.length;
+ var list=items.map(function(it,i){return (i+1)+". "+it.name+" – "+(it.wish.trim()||"(keine Wünsche angegeben)")}).join("\n");
+ var note=v("wunsch"),kontakt=v("kontakt"),name=v("name");
+ var subject=n===1?"Neue Anfrage: "+items[0].name:"Neue Anfrage: "+n+" Produkte";
+ var body="Hallo HT-Print-Team,\n\nich möchte gern folgende Produkte anfragen:\n\n"+list+"\n\n"+(note?"Weitere Anmerkungen:\n"+note+"\n\n":"")+"Erreichbar unter: "+kontakt+"\n\nViele Grüße\n"+name;
+ var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
  var payload={
   access_key:WEB3FORMS_KEY,
-  subject:"Neue Anfrage: "+v("produkt"),
-  from_name:v("name")+" via HT-Print",
-  name:v("name"),
-  Produkt:v("produkt"),
-  Wuensche:wunsch,
+  subject:subject,
+  from_name:name+" via HT-Print",
+  name:name,
+  Produkte:list,
+  Anmerkungen:note||"-",
   Kontakt:kontakt,
   message:body
  };
@@ -259,12 +307,12 @@ document.getElementById("f").addEventListener("submit",function(e){
  fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
  .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d}})})
  .then(function(res){
-  if(res.d&&res.d.success===true){document.getElementById("f").reset();show(true);done()}
+  if(res.d&&res.d.success===true){items=[];render();document.getElementById("f").reset();show(true);done()}
   else throw new Error("failed");
  })
  .catch(mailFallback);
 });
-document.getElementById("again").addEventListener("click",function(){document.getElementById("f").reset();show(false)});
+document.getElementById("again").addEventListener("click",function(){document.getElementById("f").reset();render();show(false)});
 </script>
 </body>
 </html>
