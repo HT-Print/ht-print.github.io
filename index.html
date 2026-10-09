@@ -314,6 +314,29 @@ footer .fl{margin:.5rem 0 0}footer .fl a{color:#e6e5e1}
 .mbr{display:none}
 @media (max-width:600px){.mbr{display:inline}.dash{display:none}.dbr{display:none}}
 #auswahl .lead{max-width:80ch}
+
+.tile.ph{border:0;padding:0;cursor:zoom-in;overflow:hidden;position:relative;width:100%;font:inherit;color:#fff}
+.tile.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.tile.ph:hover img{transform:scale(1.04)}
+.phb{position:absolute;left:.5rem;bottom:.5rem;display:flex;align-items:center;gap:.35rem;background:rgba(18,18,18,.82);color:#fff;font-weight:700;font-size:.78rem;padding:.25rem .55rem;border-left:3px solid var(--or)}
+.phb svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,10,10,.94);color:#fff;display:flex;flex-direction:column;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
+.lb[hidden]{display:none}
+.lb-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;max-width:1100px;width:100%;margin:0 auto}
+.lb-t{margin:0;display:flex;gap:.7rem;align-items:baseline}.lb-t b{font-stretch:112%;font-size:1.1rem}.lb-t span{color:#bdbcb7;font-size:.9rem}
+.lb-x{background:none;border:2px solid #555;color:#fff;width:2.6rem;height:2.6rem;font-size:1.1rem;cursor:pointer}
+.lb-x:hover{border-color:var(--or)}
+.lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:.6rem;max-width:1100px;width:100%;margin:.6rem auto}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;min-width:0;flex:1 1 auto;touch-action:pan-y}
+.lb-a{flex:none;width:3rem;height:3rem;border-radius:50%;border:2px solid var(--or);background:rgba(18,18,18,.7);color:#fff;font-size:1.8rem;line-height:1;cursor:pointer}
+.lb-a:hover{background:var(--or);color:#121212}
+.lb-c{text-align:center;color:#bdbcb7;font-size:.85rem;margin:0 0 .5rem}
+.lb-dots{display:flex;justify-content:center;gap:.45rem}
+.lb-dots button{width:.7rem;height:.7rem;border-radius:50%;border:0;background:#555;padding:0;cursor:pointer}
+.lb-dots button[aria-current="true"]{background:var(--or)}
+@media (max-width:600px){.lb-a{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;font-size:1.5rem}.lb-p{left:8px}.lb-n{right:8px}.lb-stage{position:relative}}
+.split .tile .phb svg,.tile .phb svg{position:static;inset:auto;width:1rem;height:1rem;max-height:none;max-width:none;margin:0}
+.tile.ph:focus-visible{outline:3px solid var(--or);outline-offset:-3px}
 </style>
 </head>
 <body>
@@ -450,6 +473,12 @@ footer .fl{margin:.5rem 0 0}footer .fl a{color:#e6e5e1}
   </div>
 </section>
 </main>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Beispielbilder" hidden>
+  <div class="lb-top"><p class="lb-t"><b id="lbT"></b><span id="lbN"></span></p><button type="button" class="lb-x" id="lbX" aria-label="Schließen">✕</button></div>
+  <div class="lb-stage"><button type="button" class="lb-a lb-p" id="lbP" aria-label="Vorheriges Bild">‹</button><img id="lbI" alt=""><button type="button" class="lb-a lb-n" id="lbNx" aria-label="Nächstes Bild">›</button></div>
+  <p class="lb-c">Beispielbilder · Farbe, Form und Name gestalten wir nach deinem Wunsch</p>
+  <div class="lb-dots" id="lbD"></div>
+</div>
 <footer>
   <div class="wrap"><b>HT-PRINT</b><br>Von Hundebesitzern für Hundebesitzer
     <p class="fl"><a href="#gaestebuch">Gästebuch</a> · <a href="https://wa.me/4915239606028" target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:htprints@yahoo.com">E-Mail</a></p>
@@ -466,8 +495,8 @@ var P=[
 ["Kotbeutel-Spender","Damit die Beutel immer griffbereit und geschützt sind.",'<rect x="20" y="26" width="60" height="52" rx="16"/><path d="M36 26v-8a14 14 0 0 1 28 0v8M40 56h20"/>',"ab 5 €"],
 ["Hundemarke","In Form, Farbe und Text individualisierbar.",'<path d="M30 38a10 10 0 1 1 8-14h24a10 10 0 1 1 8 14 10 10 0 1 1-8 14H38a10 10 0 1 1-8-14z" transform="translate(0 8)"/><circle cx="50" cy="50" r="4"/>',"ab 5 €"],
 ["Leckerli-Dose","Für zuhause oder unterwegs.",'<rect x="24" y="36" width="52" height="46" rx="6"/><rect x="20" y="22" width="60" height="14" rx="5"/><path d="M40 56h20"/>',"ab 7 €"],
-["Napf-Ständer","Hebt den Napf auf eine angenehme Höhe.",'<path d="M20 44h60l-8 14H28zM32 58l-6 26M68 58l6 26M50 58v26"/>',"ab 7 €"],
-["Leinen-Wandhaken","Ein fester Platz für Leine und Geschirr, direkt an der Wand.",'<rect x="30" y="16" width="40" height="66" rx="8"/><path d="M50 40v22a10 10 0 0 0 20 0v-6"/><circle cx="50" cy="28" r="3"/>',"ab 8 €"],
+["Napf-Ständer","Hebt den Napf auf eine angenehme Höhe.",'<path d="M20 44h60l-8 14H28zM32 58l-6 26M68 58l6 26M50 58v26"/>',"ab 20 €"],
+["Leinen-Wandhaken","Ein fester Platz für Leine und Geschirr, direkt an der Wand.",'<rect x="30" y="16" width="40" height="66" rx="8"/><path d="M50 40v22a10 10 0 0 0 20 0v-6"/><circle cx="50" cy="28" r="3"/>',"ab 10 €"],
 ["Alltags-Gadgets","Kleine, praktische Helfer für den Alltag.",'<path d="M30 70L62 38"/><path d="M62 38Q58 26 68 20Q74 17 80 19L71 28L73 33L78 35L87 26Q89 32 86 38Q80 48 68 44Z"/><path d="M30 70Q26 66 22 70L16 76Q14 82 20 84Q26 86 30 80L36 74Q34 70 30 70Z"/><path d="M24 30L38 44"/><path d="M18 24L24 18L32 26L26 32Z"/><path d="M42 48L72 78Q76 84 82 78Q86 72 80 68L50 40"/>',"Preis auf Anfrage"],
 ["Deko","Jedes Produkt wird nach deinen Wünschen gestaltet, (fast) alles ist möglich.",'<path d="M34 33Q50 24 66 33Q71 50 70 62Q66 84 50 84Q34 84 30 62Q29 50 34 33Z"/><path d="M34 33Q12 28 12 52Q12 68 27 70L30 62"/><path d="M66 33Q88 28 88 52Q88 68 73 70L70 62"/><circle cx="41" cy="50" r="1.2"/><circle cx="59" cy="50" r="1.2"/><path d="M44 60H56Q56 67 50 70Q44 67 44 60Z"/><path d="M50 70V75M50 75Q44 79 40 75M50 75Q56 79 60 75"/>',"Preis auf Anfrage"]
 ];
@@ -481,8 +510,9 @@ function keepOrder(n){try{localStorage.setItem("htp_last_order",n)}catch(x){}var
 function totalQty(){return items.reduce(function(s,it){return s+(it.qty||1)},0)}
 function bundlePct(t){return t>=3?10:0}
 function updBundle(){var el=document.getElementById("bundle");if(!el)return;var t=totalQty(),p=bundlePct(t);el.hidden=!items.length;if(t<3){var need=3-t;el.innerHTML="Noch "+need+(need===1?" Produkt":" Produkte")+", dann sparst du <b>10 %</b> Bundle-Rabatt.";return}el.innerHTML="<b>"+t+" Produkte · 10 % Bundle-Rabatt</b>"}
+var IMGS={"Napf-Ständer":["napf-1.jpg","napf-2.jpg","napf-3.jpg","napf-4.jpg","napf-5.jpg","napf-6.jpg"]};
 P.forEach(function(p,i){
- g.insertAdjacentHTML("beforeend",'<article class="card"><div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div><div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><div class="pr">'+p[3]+(p[3].indexOf("ab")===0?'<span class="ast" aria-hidden="true">*</span>':"")+'</div><div class="addw"><button class="btn sm" type="button" data-i="'+i+'">Hinzufügen</button><div class="step" data-k="'+i+'" hidden><button type="button" data-sd="-1" data-k="'+i+'" aria-label="'+p[0]+': eins weniger">−</button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="'+i+'" aria-label="'+p[0]+': eins mehr">+</button></div></div></div></article>');
+ g.insertAdjacentHTML("beforeend",'<article class="card">'+(IMGS[p[0]]?'<button type="button" class="tile ph" data-g="'+p[0]+'" aria-label="'+p[0]+': '+IMGS[p[0]].length+' Beispielbilder ansehen"><img src="'+IMGS[p[0]][0]+'" alt="" loading="lazy" decoding="async"><span class="phb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.5-2.5h4L15.5 6"/></svg>'+IMGS[p[0]].length+' Bilder</span></button>':'<div class="tile"><svg viewBox="0 0 100 100" aria-hidden="true">'+p[2]+'</svg></div>')+'<div class="body"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><div class="pr">'+p[3]+(p[3].indexOf("ab")===0?'<span class="ast" aria-hidden="true">*</span>':"")+'</div><div class="addw"><button class="btn sm" type="button" data-i="'+i+'">Hinzufügen</button><div class="step" data-k="'+i+'" hidden><button type="button" data-sd="-1" data-k="'+i+'" aria-label="'+p[0]+': eins weniger">−</button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="'+i+'" aria-label="'+p[0]+': eins mehr">+</button></div></div></div></article>');
 });
 g.insertAdjacentHTML("beforeend",'<div class="custom"><div><h3>Du hast eine eigene Idee?</h3><p>Etwas, das es hier nicht gibt, oder eine Anpassung? Beschreib uns, was du brauchst, dann schauen wir, was möglich ist.</p></div><button class="btn" type="button" data-i="custom">Eigene Idee hinzufügen</button></div>');
 function show(showThanks){
@@ -648,6 +678,27 @@ var REVIEWS=[
   window.open(url,"_blank","noopener");
   f.reset();f.hidden=true;var th=document.getElementById("rthanks");th.hidden=false;th.focus();
  });
+})();
+
+(function(){
+ var lb=document.getElementById("lb"),im=document.getElementById("lbI"),T=document.getElementById("lbT"),N=document.getElementById("lbN"),D=document.getElementById("lbD"),list=[],k=0,last=null,name="";
+ function show(n){k=(n+list.length)%list.length;im.src=list[k];im.alt=name+", Beispielbild "+(k+1)+" von "+list.length;N.textContent=(k+1)+" / "+list.length;
+  [].forEach.call(D.children,function(b,j){b.setAttribute("aria-current",j===k?"true":"false")});
+  var nx=new Image();nx.src=list[(k+1)%list.length]}
+ function open(nm,from){name=nm;list=IMGS[nm];last=from;T.textContent=nm;
+  D.innerHTML=list.map(function(_,j){return '<button type="button" aria-label="Bild '+(j+1)+'"></button>'}).join("");
+  lb.hidden=false;document.body.style.overflow="hidden";show(0);document.getElementById("lbX").focus()}
+ function close(){lb.hidden=true;document.body.style.overflow="";im.removeAttribute("src");if(last)last.focus()}
+ g.addEventListener("click",function(e){var t=e.target.closest("[data-g]");if(t)open(t.dataset.g,t)});
+ document.getElementById("lbX").onclick=close;
+ document.getElementById("lbP").onclick=function(){show(k-1)};
+ document.getElementById("lbNx").onclick=function(){show(k+1)};
+ D.addEventListener("click",function(e){var b=e.target.closest("button");if(b)show([].indexOf.call(D.children,b))});
+ lb.addEventListener("click",function(e){if(e.target===lb||e.target.classList.contains("lb-stage"))close()});
+ document.addEventListener("keydown",function(e){if(lb.hidden)return;if(e.key==="Escape")close();else if(e.key==="ArrowLeft")show(k-1);else if(e.key==="ArrowRight")show(k+1);
+  else if(e.key==="Tab"){var f=[].slice.call(lb.querySelectorAll("button"));var a=f.indexOf(document.activeElement);if(e.shiftKey&&a<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f.length-1){e.preventDefault();f[0].focus()}}});
+ var sx=null;im.addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
+ im.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)show(k+(dx<0?1:-1));sx=null});
 })();
 </script>
 </body>
