@@ -215,6 +215,14 @@ h2{font-size:32px !important;font-stretch:110% !important}
 
 .dsh{margin:0;font-size:14px;color:#C9BCA8}.dsh a{color:#E4DBCD}
 
+.liefer{border:0;margin:0;padding:0;display:grid;gap:8px}
+.liefer legend{font-weight:600;font-size:15px;color:#E4DBCD;padding:0;margin-bottom:6px}
+.opt{display:flex!important;align-items:center;gap:12px;padding:12px 14px;border:1px solid #6E604F;background:#362F27;cursor:pointer;transition:border-color 150ms ease}
+.opt:hover{border-color:#E4DBCD}
+.opt input{width:20px!important;height:20px;min-height:0!important;padding:0!important;margin:0;accent-color:#E4DBCD;flex:none}
+.opt span{display:grid;gap:2px}.opt b{color:#F2EDE5;font-size:16px}.opt small{color:#C9BCA8;font-size:14px;font-weight:400}
+.opt:has(input:checked){border-color:#E4DBCD;box-shadow:inset 0 0 0 1px #E4DBCD}
+
 </style>
 </head>
 <body>
@@ -672,10 +680,21 @@ h2{font-size:32px !important;font-stretch:110% !important}
         </ol>
         <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #625545; max-width: 38em">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
       </div>
-      <div style="flex: 1 1 340px; min-width: 0; background: #F2EDE5; padding: 32px; display: flex; flex-direction: column; gap: 10px">
-        <b style="font-size: 64px; line-height: 1; font-stretch: 125%">10 %</b>
-        <p style="margin: 0; font-size: 20px; font-weight: 800">Mehr bestellen, mehr sparen</p>
-        <p style="margin: 0; font-size: 17px; color: #3B3329">Rabatt ab 3 Produkten.</p>
+      <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <div style="background: #F2EDE5; padding: 32px; display: flex; flex-direction: column; gap: 10px">
+          <b style="font-size: 64px; line-height: 1; font-stretch: 125%">10 %</b>
+          <p style="margin: 0; font-size: 20px; font-weight: 800">Mehr bestellen, mehr sparen</p>
+          <p style="margin: 0; font-size: 17px; color: #3B3329">Rabatt ab 3 Produkten.</p>
+        </div>
+        <div id="versand" style="background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+          <h3 style="margin: 0; font-size: 20px; font-weight: 800">Versand und Abholung</h3>
+          <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 17px; line-height: 1.45">
+            <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
+            <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung</dd>
+            <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
+          </dl>
+          <p style="margin: 0; font-size: 15px; color: #625545">Die genauen Versandkosten nennen wir dir mit deinem Angebot – noch bevor du bezahlst.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -712,6 +731,10 @@ h2{font-size:32px !important;font-stretch:110% !important}
           <p class="bundle" id="bundle" aria-live="polite" hidden></p>
         </div>
         <div class="fields">
+          <fieldset class="liefer"><legend>Wie möchtest du dein Produkt bekommen?</legend>
+            <label class="opt"><input type="radio" name="liefer" value="Abholung"><span><b>Abholung</b><small>kostenlos, nach Absprache</small></span></label>
+            <label class="opt"><input type="radio" name="liefer" value="Versand"><span><b>Versand</b><small>ab 5 €, genauer Preis kommt mit dem Angebot</small></span></label>
+          </fieldset>
           <label>Dein Name<input id="name" autocomplete="name" maxlength="60" required></label>
           <label>Wie erreichen wir dich? (E-Mail oder Telefon)<input id="kontakt" maxlength="80" required></label>
           <label>Gutschein- oder Rabattcode (optional)<input id="code" maxlength="30" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="falls vorhanden"></label>
@@ -905,6 +928,8 @@ $("f").addEventListener("submit",function(e){
  var note=v("wunsch"),kontakt=v("kontakt"),name=v("name"),code=v("code").toUpperCase(),tq=totalQty(),bp=bundlePct(tq);
  var extra="\n\nProdukte gesamt: "+tq+"\nBundle-Rabatt: "+bp+" %"+(code?"\nRabattcode: "+code+" (bitte prüfen)":"");
  if(v("website")||Date.now()-LOADED<4000){items=[];render();$("f").reset();show(true);return}
+ var lf=document.querySelector('input[name="liefer"]:checked'),liefer=lf?lf.value:"";
+ if(!liefer){fail("Bitte wähle, ob du dein Produkt abholen oder geschickt bekommen möchtest.");return}
  if(!name){fail("Bitte gib deinen Namen an.");return}
  var LINK=/https?:\/\/|www\./i;
  if(code&&!/^[A-Z0-9-]{2,30}$/.test(code)){fail("Der Code darf nur Buchstaben, Zahlen und Bindestriche enthalten.");return}
@@ -915,9 +940,9 @@ $("f").addEventListener("submit",function(e){
   if((sentL.length&&Date.now()-sentL[sentL.length-1]<30000)||sentL.length>=5){fail('Du hast gerade schon eine Anfrage geschickt. Bitte versuch es später noch einmal oder schreib uns direkt an <a href="mailto:'+CONTACT_EMAIL+'">'+CONTACT_EMAIL+'</a>.');return}}catch(x){}
  var ono=orderNo();
  var subject=(n===1?"Neue Anfrage: "+items[0].name:"Neue Anfrage: "+n+" Produkte")+" ("+ono+")";
- var body="Bestellnummer: "+ono+"\n\nHallo HT-Print-Team,\n\nich möchte gern folgende Produkte anfragen:\n\n"+list+extra+"\n\n"+(note?"Weitere Anmerkungen:\n"+note+"\n\n":"")+"Erreichbar unter: "+kontakt+"\n\nViele Grüße\n"+name;
+ var body="Bestellnummer: "+ono+"\n\nHallo HT-Print-Team,\n\nich möchte gern folgende Produkte anfragen:\n\n"+list+extra+"\n\n"+(note?"Weitere Anmerkungen:\n"+note+"\n\n":"")+"Lieferung: "+liefer+"\n"+"Erreichbar unter: "+kontakt+"\n\nViele Grüße\n"+name;
  var fallback="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
- var payload={access_key:WEB3FORMS_KEY,subject:subject,Bestellnummer:ono,from_name:name+" via HT-Print",name:name,Produkte:list,"Anzahl Produkte":String(tq),"Bundle-Rabatt":bp+" %",Rabattcode:code||"-",Anmerkungen:note||"-",Kontakt:kontakt,message:body};
+ var payload={access_key:WEB3FORMS_KEY,subject:subject,Bestellnummer:ono,from_name:name+" via HT-Print",name:name,Produkte:list,"Anzahl Produkte":String(tq),"Bundle-Rabatt":bp+" %",Rabattcode:code||"-",Anmerkungen:note||"-",Lieferung:liefer,Kontakt:kontakt,message:body};
  if(kontakt.indexOf("@")>0){payload.email=kontakt;payload.replyto=kontakt}else payload.email=CONTACT_EMAIL;
  err.hidden=true;btn.disabled=true;btn.textContent="Wird gesendet …";
  function done(){btn.disabled=false;btn.textContent="Anfrage abschicken"}
@@ -943,6 +968,7 @@ $("again").addEventListener("click",function(){$("f").reset();render();show(fals
    var tq=totalQty();if(bundlePct(tq))t+="\nBundle-Rabatt: "+bundlePct(tq)+" % ("+tq+" Produkte)\n";
    var cc=$("code");if(cc.value.trim())t+="Rabattcode: "+cc.value.trim().toUpperCase()+"\n";
   }else t+="ich interessiere mich für eure Produkte.\n";
+  var lf=document.querySelector('input[name="liefer"]:checked');if(items.length&&lf)t+="Lieferung: "+lf.value+"\n";
   var n=$("name");if(n.value.trim())t+="\nViele Grüße\n"+n.value.trim();
   return "https://wa.me/"+WA_NR+"?text="+encodeURIComponent(t);
  }
