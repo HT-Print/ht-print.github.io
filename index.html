@@ -56,7 +56,7 @@ mask-image:linear-gradient(#000 0 0),url(logo-nav.png);
 :focus-visible{outline:2px solid #2B251E;outline-offset:3px}
 button,a{-webkit-tap-highlight-color:transparent}
 .btn-dark{transition:background-color 150ms ease,transform 100ms ease}
-.btn-dark:hover{background:#4A4034 !important}
+.btn-dark:hover{background:#4A4034 !important;color:#F2EDE5}
 .btn-dark:active,.btn-light:active{transform:scale(.97)}
 .btn-light{transition:background-color 150ms ease,transform 100ms ease}
 .btn-light:hover{background:#F2EDE5 !important}
@@ -69,7 +69,8 @@ h2,h3{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
 .nw{white-space:nowrap}
 .navrow a{min-width:44px;justify-content:center}
 @media (max-width:560px){
-h2{font-size:32px !important;font-stretch:110% !important}
+h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
+.steps-ol{grid-template-columns:1fr !important}
 .navrow{width:100%;justify-content:space-between;gap:4px 12px !important;font-size:15px !important}
 #start > div{padding:14px 0 10px}
 }
@@ -229,8 +230,9 @@ h2{font-size:32px !important;font-stretch:110% !important}
 <div style="font-family: Archivo, 'Helvetica Neue', sans-serif; color: #2B251E; background: #E4DBCD; min-width: 0; position: relative">
 
   <section id="intro" aria-label="Willkommen" style="min-height: 100vh; box-sizing: border-box; padding: 40px 24px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center; background: #E2D6C7; overflow: hidden">
-    <img id="introLogo" src="logo-3d.jpg" width="1536" height="1024" fetchpriority="high" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" class="introlog" style="width: min(860px, 124%); max-width: none; flex: none; height: auto; display: block; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)">
+    <img id="introLogo" src="logo-3d.jpg" width="1536" height="1024" fetchpriority="high" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" class="introlog" style="width: min(860px, 124%, 82vh); max-width: none; flex: none; height: auto; display: block; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)">
     <p class="fade-o" style="margin: 0; font-size: 21px; color: #3B3329">Individuelles Hundezubehör aus dem 3D-Druck</p>
+    <a href="#produkte" id="goProd" class="fade-o btn-dark" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #2B251E; color: #F2EDE5; text-decoration: none; font-weight: 700; font-size: 17px">Direkt zu den Produkten</a>
     <a href="#start" id="goPage" class="gogo fade-o" style="display: inline-flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; margin-top: 6px">Zur Seite
       <span aria-hidden="true" class="bob" style="width: 52px; height: 52px; border: 2px solid #2B251E; border-radius: 50%; display: grid; place-items: center"><svg viewBox="0 0 24 24" width="22" height="22" style="fill: none; stroke: #2B251E; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round"><path d="M5 9l7 7 7-7"></path></svg></span>
     </a>
@@ -241,7 +243,6 @@ h2{font-size:32px !important;font-stretch:110% !important}
       <a href="#start" aria-label="HT-Print" style="display: block"><img src="logo-nav.png" alt="HT-Print" width="1069" height="491" class="navlogo" style="height: 48px; width: auto; display: block"></a>
       <div class="navrow" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; font-size: 16px; font-weight: 600">
         <a href="#produkte" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Produkte</a>
-        <a href="#luna" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">LUNA</a>
         <a href="#ueber" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Über uns</a>
         <a href="#anfrage" id="navGo" class="btn-dark" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; background: #2B251E; color: #F2EDE5">Zur Anfrage<span class="cnt" id="navCnt" hidden></span></a>
       </div>
@@ -255,6 +256,14 @@ h2{font-size:32px !important;font-stretch:110% !important}
         <div class="rise r1" style="display: flex; flex-direction: column; gap: 6px">
           <p style="margin: 0; font-size: 22px; line-height: 1.4; font-weight: 600">Kotbeutel-Spender, Hundemarken, Napf-Ständer und mehr.</p>
           <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #3B3329">Mit dem Namen deines Hundes, in deiner Wunschform, genau passend.</p>
+        </div>
+        <div class="rise r2" style="display: flex; flex-direction: column; gap: 14px; padding-top: 18px; border-top: 2px solid #2B251E; max-width: 36em">
+          <h2 id="ablauf-h" class="steps-h" style="margin: 0; font-size: 17px; font-weight: 800; font-stretch: 112%">So kommst du zu deinem Produkt</h2>
+          <ol class="steps-ol" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 24px">
+            <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">1</b><span style="font-size: 15px; line-height: 1.45">Produkte auswählen und Anfrage schicken</span></li>
+            <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">2</b><span style="font-size: 15px; line-height: 1.45">Wir prüfen dein Modell im Slicer</span></li>
+            <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">3</b><span style="font-size: 15px; line-height: 1.45">Du bekommst deinen exakten Endpreis</span></li>
+          </ol>
         </div>
       </div>
       <figure class="rise r3" style="flex: 1 1 400px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 10px">
@@ -303,32 +312,29 @@ h2{font-size:32px !important;font-stretch:110% !important}
     </div>
   </section>
 
-  <section id="luna" aria-labelledby="luna-h" style="background: #D8CDBC">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: stretch">
-      <div style="flex: 1 1 460px; min-width: 0; padding: 72px 48px 72px 32px; display: flex; flex-direction: column; gap: 24px; justify-content: center">
-        <h2 id="luna-h" style="margin: 0"><span role="img" aria-label="LUNA Kollektion" style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: fit-content">
-          <img src="luna-wort.png" alt="" style="width: min(360px, 100%); height: auto; display: block">
-          <span style="display: flex; align-items: center; gap: 12px"><span style="width: 56px; height: 1px; background: #534838"></span><span style="font-family: Jost, sans-serif; font-weight: 300; font-size: 17px; letter-spacing: .55em; margin-right: -.55em; color: #534838">KOLLEKTION</span><span style="width: 56px; height: 1px; background: #534838"></span></span>
-        </span></h2>
-        <p style="margin: 0; font-family: Jost, sans-serif; font-size: 26px; color: #3F362B">Design, das sich einfügt.</p>
-        <div style="display: flex; flex-direction: column; gap: 8px; max-width: 30em">
-          <p style="margin: 0; font-size: 18px; line-height: 1.5; font-weight: 600; color: #3F362B">Unsere eigene Designlinie.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Kotbeutelhalter, Leckerli-Dose, Napf-Ständer und Wandhaken in einem ruhigen, gemeinsamen Look.</p>
-        </div>
-        <button type="button" disabled title="Die LUNA Kollektion kommt bald" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border: 0; background: #CFC3B1; color: #4A4034; font: 700 16px Archivo, sans-serif; cursor: not-allowed">Coming soon</button>
-      </div>
-      <div style="flex: 1 1 440px; min-width: 0; min-height: 420px; position: relative">
-        <img loading="lazy" decoding="async" src="luna-napf.jpg" alt="LUNA Napf-Ständer in Sand mit Namensschild" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">
-      </div>
-    </div>
-  </section>
-
-  <section id="produkte" aria-labelledby="prod-h" style="padding: 96px 32px 40px">
+  <section id="produkte" tabindex="-1" aria-labelledby="prod-h" style="padding: 96px 32px 40px">
     <div style="max-width: 1200px; margin: 0 auto">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; max-width: 40em">
         <h2 id="prod-h" style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 800; font-stretch: 125%">Mix &amp; Match – triff deine Wahl</h2>
         <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #3B3329">Such dir genau das aus, was du brauchst.<br>Du kannst problemlos mehrere Produkte auswählen und deiner Anfrage hinzufügen.</p>
       </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 28px">
+        <div style="flex: 1 1 300px; min-width: 0; background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 10px">
+          <b style="font-size: 64px; line-height: 1; font-stretch: 125%">10 %</b>
+          <p style="margin: 0; font-size: 20px; font-weight: 800">Mehr bestellen, mehr sparen</p>
+          <p style="margin: 0; font-size: 17px; color: #3B3329">Rabatt ab 3 Produkten.</p>
+        </div>
+        <div id="versand" style="flex: 2 1 440px; min-width: 0; background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+          <h3 style="margin: 0; font-size: 20px; font-weight: 800">Versand und Abholung</h3>
+          <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 17px; line-height: 1.45">
+            <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
+            <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung</dd>
+            <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
+          </dl>
+          <p style="margin: 0; font-size: 15px; color: #625545">Die genauen Versandkosten nennen wir dir mit deinem Angebot – noch bevor du bezahlst.</p>
+        </div>
+      </div>
+      <p style="margin: -12px 0 24px; font-size: 14px; line-height: 1.5; color: #625545; max-width: 48em">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
       <p role="note" style="margin: 0 0 28px; display: flex; align-items: flex-start; gap: 12px; max-width: 40em; background: #F2EDE5; padding: 14px 18px; font-size: 16px; line-height: 1.5">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="flex: none; margin-top: 1px; fill: none; stroke: #2B251E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M21 16l-5-5-8 8"></path></svg>
         <span><b>Alle Bilder sind Beispielbilder und dienen zur Inspiration.</b><br>Dein Produkt gestalten wir nach deinen Wünschen – es kann daher vom Bild abweichen.</span>
@@ -666,58 +672,6 @@ h2{font-size:32px !important;font-stretch:110% !important}
     </div>
   </section>
 
-  <section aria-labelledby="ablauf-h" style="padding: 64px 32px 96px">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: flex-start">
-      <div style="flex: 1.2 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <h2 id="ablauf-h" style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 800; font-stretch: 125%">So kommst du zu deinem Produkt</h2>
-          <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #3B3329">So einzigartig wie dein Projekt – dein individuelles Angebot.</p>
-        </div>
-        <ol style="margin: 0; padding: 0; list-style: none; display: grid; gap: 16px">
-          <li style="display: flex; gap: 18px; align-items: baseline"><b style="font-size: 30px; font-stretch: 125%; width: 34px; flex: none">1</b><span style="font-size: 19px">Du schickst uns deine Anfrage.</span></li>
-          <li style="display: flex; gap: 18px; align-items: baseline"><b style="font-size: 30px; font-stretch: 125%; width: 34px; flex: none">2</b><span style="font-size: 19px">Wir prüfen dein Modell im Slicer.</span></li>
-          <li style="display: flex; gap: 18px; align-items: baseline"><b style="font-size: 30px; font-stretch: 125%; width: 34px; flex: none">3</b><span style="font-size: 19px">Du bekommst zeitnah deinen exakten, transparenten Endpreis.</span></li>
-        </ol>
-        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #625545; max-width: 38em">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
-      </div>
-      <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-        <div style="background: #F2EDE5; padding: 32px; display: flex; flex-direction: column; gap: 10px">
-          <b style="font-size: 64px; line-height: 1; font-stretch: 125%">10 %</b>
-          <p style="margin: 0; font-size: 20px; font-weight: 800">Mehr bestellen, mehr sparen</p>
-          <p style="margin: 0; font-size: 17px; color: #3B3329">Rabatt ab 3 Produkten.</p>
-        </div>
-        <div id="versand" style="background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
-          <h3 style="margin: 0; font-size: 20px; font-weight: 800">Versand und Abholung</h3>
-          <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 17px; line-height: 1.45">
-            <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
-            <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung</dd>
-            <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
-          </dl>
-          <p style="margin: 0; font-size: 15px; color: #625545">Die genauen Versandkosten nennen wir dir mit deinem Angebot – noch bevor du bezahlst.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="ueber" aria-labelledby="ueber-h" style="background: #F2EDE5; padding: 96px 32px">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
-      <div style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-start">
-        <h2 id="ueber-h" style="margin: 0; flex: 1 1 380px; font-size: 44px; line-height: 1.05; font-weight: 800; font-stretch: 125%">Von Hundebesitzern für Hundebesitzer</h2>
-        <div style="flex: 1.2 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 14px; max-width: 32em">
-          <p style="margin: 0; font-size: 24px; line-height: 1.35; font-weight: 600">Hinter HT-Print stecken zwei Hunde und ihr Mensch.</p>
-          <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3329">Vieles, was ich im Alltag mit den beiden gebraucht habe, gab es nicht so, wie ich es wollte.</p>
-          <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3329">Also habe ich angefangen, es selbst zu entwerfen und zu drucken. Heute mache ich das auch für dich.</p>
-        </div>
-      </div>
-      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0 32px; border-top: 2px solid #2B251E">
-        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Robust</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Gemacht für den täglichen Einsatz draußen und drinnen.</p></li>
-        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Praktisch</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Entworfen aus dem Alltag mit meinen eigenen Hunden.</p></li>
-        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Individuell</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Jedes Produkt entsteht erst, wenn du es bestellst.</p></li>
-        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Mit Herz</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Jede Anfrage beantworte ich persönlich.</p></li>
-      </ul>
-    </div>
-  </section>
-
   <section id="anfrage" aria-labelledby="anf-h" style="background: #2B251E; color: #F2EDE5; padding: 88px 32px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
       <h2 id="anf-h" style="margin: 0; font-size: 44px; font-weight: 800; font-stretch: 125%">Deine Anfrage</h2>
@@ -791,6 +745,25 @@ h2{font-size:32px !important;font-stretch:110% !important}
     </div>
   </section>
 
+  <section id="ueber" aria-labelledby="ueber-h" style="background: #F2EDE5; padding: 96px 32px">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px">
+      <div style="display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-start">
+        <h2 id="ueber-h" style="margin: 0; flex: 1 1 380px; font-size: 44px; line-height: 1.05; font-weight: 800; font-stretch: 125%">Von Hundebesitzern für Hundebesitzer</h2>
+        <div style="flex: 1.2 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 14px; max-width: 32em">
+          <p style="margin: 0; font-size: 24px; line-height: 1.35; font-weight: 600">Hinter HT-Print stecken zwei Hunde und ihr Mensch.</p>
+          <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3329">Vieles, was ich im Alltag mit den beiden gebraucht habe, gab es nicht so, wie ich es wollte.</p>
+          <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3329">Also habe ich angefangen, es selbst zu entwerfen und zu drucken. Heute mache ich das auch für dich.</p>
+        </div>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0 32px; border-top: 2px solid #2B251E">
+        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Robust</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Gemacht für den täglichen Einsatz draußen und drinnen.</p></li>
+        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Praktisch</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Entworfen aus dem Alltag mit meinen eigenen Hunden.</p></li>
+        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Individuell</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Jedes Produkt entsteht erst, wenn du es bestellst.</p></li>
+        <li style="padding: 26px 0 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 112%">Mit Herz</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3B3329">Jede Anfrage beantworte ich persönlich.</p></li>
+      </ul>
+    </div>
+  </section>
+
   <footer style="background: #2B251E; color: #C9BCA8; padding: 48px 32px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center; justify-content: space-between">
       <img loading="lazy" src="logo-hell.png" width="1251" height="588" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" style="height: 84px; width: auto; display: block">
@@ -828,13 +801,12 @@ var g=$("produkte");
 
 /* ===== Start: Flug durch das Logo ===== */
 (function(){
- var go=$("goPage"),img=$("introLogo"),nav=$("start"),intro=$("intro"),busy=false;
- if(!go||!img||!nav)return;
- function land(){try{nav.focus({preventScroll:true})}catch(x){}}
- go.addEventListener("click",function(e){
-  e.preventDefault();if(busy)return;
+ var img=$("introLogo"),intro=$("intro"),busy=false;
+ if(!img||!intro)return;
+ function fly(target){
+  function land(){try{target.focus({preventScroll:true})}catch(x){}}
   var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduce){nav.scrollIntoView({behavior:"auto",block:"start"});land();return}
+  if(reduce){target.scrollIntoView({behavior:"auto",block:"start"});land();return}
   busy=true;
   var vw=window.innerWidth,vh=window.innerHeight,r=img.getBoundingClientRect();
   // Zeichen + Schriftzug im 3D-Bild: links 15,3 %, oben 21 %, Breite 69,6 %
@@ -854,14 +826,16 @@ var g=$("produkte");
    im.style.webkitMaskImage=im.style.maskImage="radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)";
    w.appendChild(h);w.appendChild(im);document.body.appendChild(w);
    requestAnimationFrame(function(){requestAnimationFrame(function(){
-    window.scrollTo({top:window.scrollY+nav.getBoundingClientRect().top,behavior:"instant"});
+    window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top,behavior:"instant"});
     intro.classList.remove("intro-go");
     w.style.transition="transform 1100ms cubic-bezier(.7,0,.84,0)";
     w.classList.add("zoom-go");w.style.transform="scale("+S+")";
     setTimeout(function(){w.remove();busy=false;land()},1160);
    })});
   },220);
- });
+ }
+ [["goPage","start"],["goProd","produkte"]].forEach(function(p){var a=$(p[0]),t=$(p[1]);if(!a||!t)return;
+  a.addEventListener("click",function(e){e.preventDefault();if(!busy)fly(t)})});
 })();
 
 /* ===== Auswahl und Anfrage ===== */
