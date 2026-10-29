@@ -65,15 +65,32 @@ button,a{-webkit-tap-highlight-color:transparent}
 .chipnav:hover{background:#2B251E;color:#F2EDE5}
 .foot a{display:inline-flex;align-items:center;min-height:44px;text-underline-offset:4px}
 .foot a:focus-visible{outline-color:#F2EDE5}
-h2,h3{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+h1,h2,h3,h4,p,li,dd,span{hyphens:manual;-webkit-hyphens:manual}
 .nw{white-space:nowrap}
 .navrow a{min-width:44px;justify-content:center}
 @media (max-width:560px){
-h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
+h2:not(.steps-h){font-size:clamp(25px, 7.4vw, 32px) !important;font-stretch:100% !important}
+h3[id^="h-"]{font-size:clamp(22px, 6.6vw, 30px) !important;font-stretch:112% !important}
+#h-idee{font-size:clamp(26px, 8vw, 40px) !important}
 .steps-ol{grid-template-columns:1fr !important}
 .navrow{width:100%;justify-content:space-between;gap:4px 12px !important;font-size:15px !important}
 #start > div{padding:14px 0 10px}
 }
+
+/* ===== Glas-Akzente ===== */
+#start{position:sticky;top:0;z-index:30;background:rgba(228,219,205,.72);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.55);box-shadow:0 8px 24px rgba(74,55,35,.10)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#start{background:rgba(232,224,212,.97)}}
+.vb-pill{display:inline-block;margin-right:8px;padding:3px 12px;border-radius:999px;background:#2B251E;color:#F2EDE5;font-size:13px;font-weight:700}
+.btn-dark,.btn-light,.chipnav,button[disabled]{border-radius:999px !important}
+.btn-dark{box-shadow:0 6px 16px rgba(43,37,30,.22)}
+.btn-dark{white-space:nowrap}
+@media (min-width:561px){html{scroll-padding-top:110px}}
+.gd-li,li[style*="background: #F2EDE5; padding: 6px 12px"]{border-radius:999px}
+#produkte article div[style*="aspect-ratio"],#produkte article img[style*="aspect-ratio"],#produkte .thumb{border-radius:16px;overflow:hidden}
+header figure > div{border-radius:24px}
+div[style*="background: #F2EDE5; padding: 32px"],#versand,.b2b,p[role="note"],#p-idee{border-radius:22px}
+button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:rgba(255,255,255,.55) !important;box-shadow:0 8px 24px rgba(43,37,30,.28)}
+@media (max-width:560px){#start{position:relative}.vb{font-size:14px !important}#versand dl{grid-template-columns:1fr !important;gap:2px 0 !important}#versand dd{margin-bottom:10px !important}.b2b{padding:28px 22px !important}#p-idee{padding:34px 22px !important}}
 @keyframes fadeonly{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.layered,.bob{animation:none}.hero-go h1,.hero-go .rise{animation:fadeonly 400ms ease both}}
 /* ===== Funktionen ===== */
@@ -224,6 +241,23 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
 .opt span{display:grid;gap:2px}.opt b{color:#F2EDE5;font-size:16px}.opt small{color:#C9BCA8;font-size:14px;font-weight:400}
 .opt:has(input:checked){border-color:#E4DBCD;box-shadow:inset 0 0 0 1px #E4DBCD}
 
+/* ===== Glas-Akzente (Website) ===== */
+.fbtn,.ghost,.sup-l,.pill{border-radius:999px}
+.step{border-radius:999px;overflow:hidden}
+.opt{border-radius:16px}
+#anfrage input,#anfrage textarea,.rf input,.rf textarea{border-radius:12px}
+.items,.rf,.rev,.gb-empty{border-radius:20px}
+.it{border-radius:14px}
+.qty button{border-radius:50%}
+.err,.bundle,.ono{border-radius:12px}
+.sup-pop{border-radius:20px}
+.lb-x{border-radius:50%}
+.phb{border-radius:999px}
+.ph,.ph img{border-radius:16px}
+.thumb,.thumb img{border-radius:10px}
+.vbnote{margin:0;padding:12px 14px;border-radius:14px;background:rgba(228,219,205,.10);border:1px solid #6E604F;color:#E4DBCD;font-size:15px;line-height:1.5}
+.vbnote b{color:#F2EDE5}
+
 </style>
 </head>
 <body>
@@ -239,6 +273,7 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
   </section>
 
   <nav id="start" tabindex="-1" aria-label="Hauptmenü" style="padding: 0 32px; border-top: 1px solid #C9BCA8">
+    <p class="vb vb-only" style="margin: 0 auto; max-width: 1200px; padding: 10px 0 0; text-align: center; font-size: 15px; font-weight: 600"><span class="vb-pill">Jetzt vorbestellen</span> Versand und Abholung ab 20. November – rechtzeitig vor Weihnachten.</p>
     <div style="max-width: 1200px; margin: 0 auto; min-height: 84px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px">
       <a href="#start" aria-label="HT-Print" style="display: block"><img src="logo-nav.png" alt="HT-Print" width="1069" height="491" class="navlogo" style="height: 48px; width: auto; display: block"></a>
       <div class="navrow" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; font-size: 16px; font-weight: 600">
@@ -329,7 +364,10 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
           <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 17px; line-height: 1.45">
             <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
             <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung</dd>
+            <dt class="vb-only" style="font-weight: 700">Vorbestellung</dt><dd class="vb-only" style="margin: 0; color: #3B3329">Ab dem 20. November fertigen und verschicken wir alle Bestellungen der Reihe nach.</dd>
             <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
+            <dt style="font-weight: 700">Zahlung</dt><dd style="margin: 0; color: #3B3329">PayPal oder Überweisung</dd>
+            <dt style="font-weight: 700">Qualität</dt><dd style="margin: 0; color: #3B3329">Nicht zufrieden mit dem Druck? Dann drucken wir dein Produkt neu.</dd>
           </dl>
           <p style="margin: 0; font-size: 15px; color: #625545">Die genauen Versandkosten nennen wir dir mit deinem Angebot – noch bevor du bezahlst.</p>
         </div>
@@ -588,7 +626,7 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
         <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Nach deinen Wünschen gestaltet – (fast) alles ist möglich.</p>
-            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Für dein Zuhause, als Geschenk oder als Erinnerung.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Zum Aufstellen oder als Wanddekoration – für dein Zuhause, als Geschenk oder als Erinnerung.</p>
           </div>
           <div>
             <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">Beispiele</h4>
@@ -599,7 +637,6 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Ostern</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Schneekugel</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Christbaum-Anhänger</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Hundekopf als Wandschmuck</li>
             </ul>
           </div>
           <div>
@@ -625,7 +662,7 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
         <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Dein Lieblingsfoto, gedruckt in Licht.</p>
-            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Ohne Licht ein feines Relief. Mit Licht dahinter erscheint dein Foto.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Ohne Licht ein feines weißes Relief. Mit Licht dahinter erscheint dein Foto – in Schwarz-Weiß oder sogar in Farbe.</p>
           </div>
           <div>
             <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">Mögliche Formen</h4>
@@ -648,9 +685,13 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
               <li>Form und Größe</li>
               <li>Mehrere Fotos rundum, beim Würfel oder Zylinder</li>
               <li>Name oder Datum dazu</li>
+              <li>Schwarz-Weiß oder in Farbe</li>
             </ul>
           </div>
-          <p style="margin: 0; font-size: 16px; color: #625545">Tipp: Ein scharfes, helles Foto ergibt das schönste Ergebnis.</p>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <p style="margin: 0; font-size: 16px; color: #625545">Tipp: Ein scharfes, helles Foto ergibt das schönste Ergebnis.</p>
+            <p style="margin: 0; font-size: 16px; font-weight: 700">Leuchtmittel nicht im Lieferumfang enthalten.</p>
+          </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">ab 15 €*</b>
             <div class="addw"><button type="button" class="btn-dark add" data-i="7" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="7" hidden><button type="button" data-sd="-1" data-k="7" aria-label="Lithophanie: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="7" aria-label="Lithophanie: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="7" hidden>In deiner Anfrage</span></div>
@@ -664,6 +705,7 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
           <div style="display: flex; flex-direction: column; gap: 8px">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Etwas, das es hier nicht gibt, oder eine Anpassung?</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #E4DBCD">Beschreib uns, was du brauchst. Wir schauen, was möglich ist.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #E4DBCD">Das muss nicht mit Hunden zu tun haben – zum Beispiel auch Bürobedarf wie Stiftehalter oder Handyhalter.</p>
           </div>
           <p style="margin: 0; font-size: 16px; color: #C9BCA8">Tipp: Eine Skizze, ein Foto oder ein paar Maße helfen uns sehr.</p>
           <button type="button" class="btn-light add" data-i="custom" aria-pressed="false" style="align-self: flex-start; min-height: 52px; padding: 0 28px; border: 0; background: #E4DBCD; color: #2B251E; font: 700 16px Archivo, sans-serif; cursor: pointer">Eigene Idee hinzufügen</button>
@@ -694,9 +736,10 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
           <label>Gutschein- oder Rabattcode (optional)<input id="code" maxlength="30" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="falls vorhanden"></label>
           <label>Weitere Anmerkungen (optional)<textarea id="wunsch" maxlength="600" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea></label>
           <div class="hp" aria-hidden="true"><label>Website<input id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <p class="vbnote vb-only"><b>Hinweis:</b> Deine Bestellung ist eine Vorbestellung. Wir melden uns mit deinem Angebot und beginnen am 20. November mit Fertigung und Versand.</p>
           <button class="fbtn submit" type="submit">Anfrage abschicken</button>
           <a class="fbtn wa" id="waBtn" href="https://wa.me/4915239606028" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5l1.3-3.6A8 8 0 1 1 8.3 19z"/><path d="M9.2 8.6c.3 2.6 2.4 4.9 5.2 5.4l1.1-1.2 1.9.9-.4 1.6c-3.9.3-8.3-3.7-8.1-7.8l1.6-.4.9 1.9z"/></svg>Lieber per WhatsApp bestellen</a>
-          <p class="dsh">Infos dazu, wie wir deine Daten verarbeiten, findest du in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+          <p class="dsh">Infos zu deinen Daten findest du in unserer <a href="datenschutz.html">Datenschutzerklärung</a>, Infos zum Widerruf <a href="widerruf.html">hier</a>.</p>
           <p class="err" id="err" role="alert" hidden></p>
         </div>
       </form>
@@ -705,11 +748,33 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
       <div id="thanks" role="status" tabindex="-1" hidden>
         <h3>Danke dir!</h3>
         <p>Schön, dass du bei HT-Print gestöbert hast.</p>
+        <p class="vb-only">Du gehörst zu den Ersten! Ab dem 20. November geht’s los mit Fertigung und Versand.</p>
         <p>Deine Anfrage ist bei uns angekommen. Wir kümmern uns persönlich darum und melden uns mit Preis und Details bei dir.</p>
         <p class="ono" id="onoBox" hidden>Deine Bestellnummer<b id="onoV"></b><span>Bitte gib sie bei Rückfragen und bei deiner Bewertung an.</span></p>
         <p>Du erreichst uns auch direkt unter <a href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
         <p class="sign">Bis bald, dein HT-Print-Team</p>
         <button class="fbtn ghost" type="button" id="again">Noch eine Anfrage</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="unternehmen" aria-labelledby="b2b-h" style="padding: 56px 32px 0">
+    <div style="max-width: 1200px; margin: 0 auto">
+      <div class="b2b" style="background: #F2EDE5; padding: 36px 40px; display: flex; flex-wrap: wrap; gap: 24px 56px; align-items: flex-start">
+        <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="b2b-h" class="steps-h" style="margin: 0; font-size: 26px; line-height: 1.15; font-weight: 800; font-stretch: 112%">Für Unternehmen</h2>
+          <p style="margin: 0; font-size: 19px; line-height: 1.45; font-weight: 600">Sie suchen Werbegeschenke mit Ihrem Logo oder eine besondere Leuchtwerbung?</p>
+          <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Wir fertigen auch für Selbstständige, Praxen und Firmen – individuell nach Ihren Vorgaben.</p>
+        </div>
+        <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+          <ul style="margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 17px; line-height: 1.45">
+            <li>Werbegeschenke mit Logo, zum Beispiel Schlüsselanhänger oder Aufsteller</li>
+            <li>Leuchtschilder und Leuchtwerbung</li>
+            <li>Halter, Displays und Schilder für Laden, Praxis oder Büro</li>
+          </ul>
+          <p style="margin: 0; font-size: 16px; color: #625545">Gerne erstellen wir Ihnen ein unverbindliches Angebot.</p>
+          <a href="mailto:htprints@yahoo.com?subject=Gesch%C3%A4ftsanfrage" class="btn-dark" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #2B251E; color: #F2EDE5; text-decoration: none; font-weight: 700">Geschäftsanfrage senden</a>
+        </div>
       </div>
     </div>
   </section>
@@ -767,7 +832,7 @@ h2:not(.steps-h){font-size:32px !important;font-stretch:110% !important}
   <footer style="background: #2B251E; color: #C9BCA8; padding: 48px 32px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center; justify-content: space-between">
       <img loading="lazy" src="logo-hell.png" width="1251" height="588" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" style="height: 84px; width: auto; display: block">
-      <p class="foot" style="margin: 0; display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 16px"><a href="#gaestebuch" style="color: #E4DBCD">Gästebuch</a><a href="https://wa.me/4915239606028" target="_blank" rel="noopener" style="color: #E4DBCD">WhatsApp</a><a href="mailto:htprints@yahoo.com" style="color: #E4DBCD">E-Mail</a><a href="impressum.html" style="color: #E4DBCD">Impressum</a><a href="datenschutz.html" style="color: #E4DBCD">Datenschutz</a></p>
+      <p class="foot" style="margin: 0; display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 16px"><a href="#gaestebuch" style="color: #E4DBCD">Gästebuch</a><a href="https://wa.me/4915239606028" target="_blank" rel="noopener" style="color: #E4DBCD">WhatsApp</a><a href="mailto:htprints@yahoo.com" style="color: #E4DBCD">E-Mail</a><a href="impressum.html" style="color: #E4DBCD">Impressum</a><a href="datenschutz.html" style="color: #E4DBCD">Datenschutz</a><a href="widerruf.html" style="color: #E4DBCD">Widerruf</a></p>
     </div>
   </footer>
 
@@ -826,7 +891,8 @@ var g=$("produkte");
    im.style.webkitMaskImage=im.style.maskImage="radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)";
    w.appendChild(h);w.appendChild(im);document.body.appendChild(w);
    requestAnimationFrame(function(){requestAnimationFrame(function(){
-    window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top,behavior:"instant"});
+    var nv=$("start"),bar=(target!==nv&&window.innerWidth>560&&nv)?nv.offsetHeight:0;
+    window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top-bar,behavior:"instant"});
     intro.classList.remove("intro-go");
     w.style.transition="transform 1100ms cubic-bezier(.7,0,.84,0)";
     w.classList.add("zoom-go");w.style.transform="scale("+S+")";
@@ -1011,6 +1077,11 @@ var REVIEWS=[
   else if(e.key==="Tab"){var f=[].slice.call(lb.querySelectorAll("button"));var a=f.indexOf(document.activeElement);if(e.shiftKey&&a<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f.length-1){e.preventDefault();f[0].focus()}}});
  var sx=null;im.addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
  im.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)show(k+(dx<0?1:-1));sx=null});
+})();
+
+/* ===== Vorbestellung: Hinweise verschwinden ab dem 20. November automatisch ===== */
+(function(){
+ if(Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))[].forEach.call(document.querySelectorAll(".vb-only"),function(e){e.hidden=true});
 })();
 
 </script>
