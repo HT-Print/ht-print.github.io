@@ -88,7 +88,7 @@ h3[id^="h-"]{font-size:clamp(22px, 6.6vw, 30px) !important;font-stretch:112% !im
 .gd-li,li[style*="background: #F2EDE5; padding: 6px 12px"]{border-radius:999px}
 #produkte article div[style*="aspect-ratio"],#produkte article img[style*="aspect-ratio"],#produkte .thumb{border-radius:16px;overflow:hidden}
 header figure > div{border-radius:24px}
-div[style*="background: #F2EDE5; padding: 32px"],#versand,.b2b,p[role="note"],#p-idee{border-radius:22px}
+div[style*="background: #F2EDE5; padding: 32px"],#versand,.b2b,p[role="note"],#p-idee,.nfc{border-radius:22px}
 button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:rgba(255,255,255,.55) !important;box-shadow:0 8px 24px rgba(43,37,30,.28)}
 @media (max-width:560px){#start{position:relative}.vb{font-size:14px !important}#versand dl{grid-template-columns:1fr !important;gap:2px 0 !important}#versand dd{margin-bottom:10px !important}.b2b{padding:28px 22px !important}#p-idee{padding:34px 22px !important}}
 @keyframes fadeonly{from{opacity:0}to{opacity:1}}
@@ -465,6 +465,22 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
             <b style="font-size: 22px; font-stretch: 112%">ab 5 €*</b>
             <div class="addw"><button type="button" class="btn-dark add" data-i="1" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="1" hidden><button type="button" data-sd="-1" data-k="1" aria-label="Hundemarke: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="1" aria-label="Hundemarke: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="1" hidden>In deiner Anfrage</span></div>
           </div>
+          <div id="nfc" class="nfc" style="background: #F2EDE5; padding: 24px; display: flex; flex-wrap: wrap; gap: 20px 24px; align-items: flex-start">
+            <img loading="lazy" decoding="async" src="nfc-1.jpg" alt="Schwarze Hundemarke mit QR-Code und NFC-Zeichen, daneben ein Handy, das das Profil eines Hundes zeigt" style="flex: 0 0 150px; width: 150px; aspect-ratio: 594 / 660; object-fit: cover; display: block; border-radius: 14px">
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+              <h4 style="margin: 0; font-size: 19px; font-weight: 800">Auch mit <span class="nw">NFC-Chip</span> und <span class="nw">QR-Code</span></h4>
+              <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #3B3329">Läuft dein Hund weg, kann jeder Finder dich sofort erreichen – ganz ohne App und ohne Abo.</p>
+              <ol style="margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 16px; line-height: 1.45">
+                <li>Handy an die Marke halten oder <span class="nw">QR-Code</span> scannen</li>
+                <li>Deine Telefonnummer oder Kontaktkarte erscheint</li>
+                <li>Ein Tipp – und dein Hund kommt nach Hause</li>
+              </ol>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 4px">
+                <b style="font-size: 20px; font-stretch: 112%">ab 12 €*</b>
+                <div class="addw"><button type="button" class="btn-dark add" data-i="2" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="2" hidden><button type="button" data-sd="-1" data-k="2" aria-label="Hundemarke mit NFC: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="2" aria-label="Hundemarke mit NFC: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="2" hidden>In deiner Anfrage</span></div>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
 
@@ -503,7 +519,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">ab 7 €*</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="2" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="2" hidden><button type="button" data-sd="-1" data-k="2" aria-label="Leckerli-Dose: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="2" aria-label="Leckerli-Dose: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="2" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="3" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="3" hidden><button type="button" data-sd="-1" data-k="3" aria-label="Leckerli-Dose: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="3" aria-label="Leckerli-Dose: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="3" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -542,7 +558,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">ab 20 €*</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="3" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="3" hidden><button type="button" data-sd="-1" data-k="3" aria-label="Napf-Ständer: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="3" aria-label="Napf-Ständer: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="3" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="4" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="4" hidden><button type="button" data-sd="-1" data-k="4" aria-label="Napf-Ständer: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="4" aria-label="Napf-Ständer: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="4" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -578,7 +594,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">ab 10 €*</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="4" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="4" hidden><button type="button" data-sd="-1" data-k="4" aria-label="Leinen-Wandhaken: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="4" aria-label="Leinen-Wandhaken: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="4" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="5" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="5" hidden><button type="button" data-sd="-1" data-k="5" aria-label="Leinen-Wandhaken: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="5" aria-label="Leinen-Wandhaken: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="5" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -613,7 +629,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">Preis auf Anfrage</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="5" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="5" hidden><button type="button" data-sd="-1" data-k="5" aria-label="Alltags-Gadgets: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="5" aria-label="Alltags-Gadgets: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="5" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="6" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="6" hidden><button type="button" data-sd="-1" data-k="6" aria-label="Alltags-Gadgets: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="6" aria-label="Alltags-Gadgets: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="6" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -649,7 +665,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">Preis auf Anfrage</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="6" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="6" hidden><button type="button" data-sd="-1" data-k="6" aria-label="Deko: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="6" aria-label="Deko: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="6" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="7" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="7" hidden><button type="button" data-sd="-1" data-k="7" aria-label="Deko: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="7" aria-label="Deko: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="7" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -694,7 +710,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">ab 15 €*</b>
-            <div class="addw"><button type="button" class="btn-dark add" data-i="7" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="7" hidden><button type="button" data-sd="-1" data-k="7" aria-label="Lithophanie: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="7" aria-label="Lithophanie: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="7" hidden>In deiner Anfrage</span></div>
+            <div class="addw"><button type="button" class="btn-dark add" data-i="8" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="8" hidden><button type="button" data-sd="-1" data-k="8" aria-label="Lithophanie: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="8" aria-label="Lithophanie: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="8" hidden>In deiner Anfrage</span></div>
           </div>
         </div>
       </article>
@@ -857,7 +873,7 @@ var LOADED=Date.now();
 var CONTACT_EMAIL="htprints@yahoo.com";
 var WEB3FORMS_KEY="cdcad9eb-fa60-46a8-8ea4-17d8b15bfbf8";
 var WA_NR="4915239606028";
-var P=["Kotbeutel-Spender","Hundemarke","Leckerli-Dose","Napf-Ständer","Leinen-Wandhaken","Alltags-Gadgets","Deko","Lithophanie"];
+var P=["Kotbeutel-Spender","Hundemarke","Hundemarke mit NFC","Leckerli-Dose","Napf-Ständer","Leinen-Wandhaken","Alltags-Gadgets","Deko","Lithophanie"];
 var EIGEN="Eigene Idee",items=[],ORDER=null;
 var IMGS=["napf-3.jpg","napf-2.jpg","napf-5.jpg","napf-6.jpg"];
 var MINUS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg>',PLUS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg>';
