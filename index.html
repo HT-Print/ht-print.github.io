@@ -80,6 +80,12 @@ h3[id^="h-"]{font-size:clamp(22px, 6.6vw, 30px) !important;font-stretch:112% !im
 /* ===== Glas-Akzente ===== */
 #start{position:sticky;top:0;z-index:30;background:rgba(228,219,205,.72);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.55);box-shadow:0 8px 24px rgba(74,55,35,.10)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#start{background:rgba(232,224,212,.97)}}
+.fact{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:#F2EDE5;font-size:15px}
+.more summary{list-style:none;text-decoration:underline;text-underline-offset:4px}.more summary::-webkit-details-marker{display:none}.more summary::after{content:"";width:8px;height:8px;margin-left:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform 150ms ease}.more[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.more[open] summary{margin-bottom:2px}
+.more > div{border-radius:18px}
+.more-chip{border:1px dashed #B8AA94;border-radius:999px;color:#625545}
+@media (max-width:900px){.desk-only{display:none !important}}
 .vb-pill{display:inline-block;margin-right:8px;padding:3px 12px;border-radius:999px;background:#2B251E;color:#F2EDE5;font-size:13px;font-weight:700}
 .btn-dark,.btn-light,.chipnav,button[disabled]{border-radius:999px !important}
 .btn-dark{box-shadow:0 6px 16px rgba(43,37,30,.22)}
@@ -258,6 +264,20 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
 .vbnote{margin:0;padding:12px 14px;border-radius:14px;background:rgba(228,219,205,.10);border:1px solid #6E604F;color:#E4DBCD;font-size:15px;line-height:1.5}
 .vbnote b{color:#F2EDE5}
 
+.wa:hover,.wa:focus,.sup-wa:hover{color:#0b1f12 !important}
+
+/* ===== Feinschliff ===== */
+.btn-light.on{color:#F2EDE5 !important}
+.btn-light.on:hover{background:rgba(242,237,229,.12) !important}
+.bundle{box-shadow:none;background:rgba(228,219,205,.10);border:1px solid #4A4034}
+.opt input{appearance:none;-webkit-appearance:none;width:20px !important;height:20px;border-radius:50%;border:2px solid #A89A86;background:transparent;display:grid;place-items:center;transition:border-color 150ms ease}
+.opt input::before{content:"";width:10px;height:10px;border-radius:50%;background:#F2EDE5;transform:scale(0);transition:transform 150ms cubic-bezier(.16,1,.3,1)}
+.opt input:checked{border-color:#F2EDE5}
+.opt input:checked::before{transform:scale(1)}
+.opt input:focus-visible{outline:2px solid #F2EDE5;outline-offset:2px}
+.it input::placeholder{color:#A89A86}
+.pill{box-shadow:0 8px 24px rgba(43,37,30,.30)}
+
 </style>
 </head>
 <body>
@@ -266,6 +286,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
   <section id="intro" aria-label="Willkommen" style="min-height: 100vh; box-sizing: border-box; padding: 40px 24px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center; background: #E2D6C7; overflow: hidden">
     <img id="introLogo" src="logo-3d.jpg" width="1536" height="1024" fetchpriority="high" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" class="introlog" style="width: min(860px, 124%, 82vh); max-width: none; flex: none; height: auto; display: block; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)">
     <p class="fade-o" style="margin: 0; font-size: 21px; color: #3B3329">Individuelles Hundezubehör aus dem 3D-Druck</p>
+    <p class="fade-o vb-only" style="margin: -10px 0 0; font-size: 16px; font-weight: 600"><span class="vb-pill">Jetzt vorbestellen</span> Versand ab 20. November</p>
     <a href="#produkte" id="goProd" class="fade-o btn-dark" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #2B251E; color: #F2EDE5; text-decoration: none; font-weight: 700; font-size: 17px">Direkt zu den Produkten</a>
     <a href="#start" id="goPage" class="gogo fade-o" style="display: inline-flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; margin-top: 6px">Zur Seite
       <span aria-hidden="true" class="bob" style="width: 52px; height: 52px; border: 2px solid #2B251E; border-radius: 50%; display: grid; place-items: center"><svg viewBox="0 0 24 24" width="22" height="22" style="fill: none; stroke: #2B251E; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round"><path d="M5 9l7 7 7-7"></path></svg></span>
@@ -278,12 +299,14 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
       <a href="#start" aria-label="HT-Print" style="display: block"><img src="logo-nav.png" alt="HT-Print" width="1069" height="491" class="navlogo" style="height: 48px; width: auto; display: block"></a>
       <div class="navrow" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; font-size: 16px; font-weight: 600">
         <a href="#produkte" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Produkte</a>
+        <a href="#unternehmen" class="desk-only" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Für Unternehmen</a>
         <a href="#ueber" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Über uns</a>
         <a href="#anfrage" id="navGo" class="btn-dark" style="text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; background: #2B251E; color: #F2EDE5">Zur Anfrage<span class="cnt" id="navCnt" hidden></span></a>
       </div>
     </div>
   </nav>
 
+  <main id="inhalt">
   <header style="padding: 40px 32px 96px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
       <div style="flex: 1.15 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
@@ -296,7 +319,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           <h2 id="ablauf-h" class="steps-h" style="margin: 0; font-size: 17px; font-weight: 800; font-stretch: 112%">So kommst du zu deinem Produkt</h2>
           <ol class="steps-ol" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 24px">
             <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">1</b><span style="font-size: 15px; line-height: 1.45">Produkte auswählen und Anfrage schicken</span></li>
-            <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">2</b><span style="font-size: 15px; line-height: 1.45">Wir prüfen dein Modell im Slicer</span></li>
+            <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">2</b><span style="font-size: 15px; line-height: 1.45">Wir prüfen, wie wir es am besten drucken</span></li>
             <li style="display: flex; gap: 10px; align-items: baseline"><b style="font-size: 26px; line-height: 1; font-stretch: 125%; flex: none">3</b><span style="font-size: 15px; line-height: 1.45">Du bekommst deinen exakten Endpreis</span></li>
           </ol>
         </div>
@@ -349,34 +372,30 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
 
   <section id="produkte" tabindex="-1" aria-labelledby="prod-h" style="padding: 96px 32px 40px">
     <div style="max-width: 1200px; margin: 0 auto">
-      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; max-width: 40em">
-        <h2 id="prod-h" style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 800; font-stretch: 125%">Mix &amp; Match – triff deine Wahl</h2>
-        <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #3B3329">Such dir genau das aus, was du brauchst.<br>Du kannst problemlos mehrere Produkte auswählen und deiner Anfrage hinzufügen.</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; max-width: 40em">
+        <h2 id="prod-h" style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 800; font-stretch: 125%">Unsere Produkte</h2>
+        <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #3B3329">Wähl so viele Produkte, wie du magst, und schick uns alles in einer Anfrage.</p>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 28px">
-        <div style="flex: 1 1 300px; min-width: 0; background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 10px">
-          <b style="font-size: 64px; line-height: 1; font-stretch: 125%">10 %</b>
-          <p style="margin: 0; font-size: 20px; font-weight: 800">Mehr bestellen, mehr sparen</p>
-          <p style="margin: 0; font-size: 17px; color: #3B3329">Rabatt ab 3 Produkten.</p>
-        </div>
-        <div id="versand" style="flex: 2 1 440px; min-width: 0; background: #F2EDE5; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
-          <h3 style="margin: 0; font-size: 20px; font-weight: 800">Versand und Abholung</h3>
-          <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; font-size: 17px; line-height: 1.45">
+      <ul class="facts" style="list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+        <li class="fact"><b>10 %</b> ab 3 Produkten</li>
+        <li class="fact"><b>Abholung</b> kostenlos</li>
+        <li class="fact"><b>Versand</b> ab 5 €</li>
+        <li class="fact vb-only"><b>Vorbestellung</b> Versand ab 20. November</li>
+      </ul>
+      <details id="versand" class="more" style="margin: 0 0 22px; max-width: 48em">
+        <summary style="cursor: pointer; font-weight: 700; font-size: 15px; min-height: 44px; display: inline-flex; align-items: center">Mehr zu Versand, Zahlung und Qualität</summary>
+        <div style="background: #F2EDE5; padding: 20px 24px; margin-top: 6px; display: flex; flex-direction: column; gap: 12px">
+          <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 18px; font-size: 16px; line-height: 1.45">
             <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
-            <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung</dd>
+            <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung. Die genauen Kosten nennen wir dir mit deinem Angebot.</dd>
             <dt class="vb-only" style="font-weight: 700">Vorbestellung</dt><dd class="vb-only" style="margin: 0; color: #3B3329">Ab dem 20. November fertigen und verschicken wir alle Bestellungen der Reihe nach.</dd>
             <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
             <dt style="font-weight: 700">Zahlung</dt><dd style="margin: 0; color: #3B3329">PayPal oder Überweisung</dd>
             <dt style="font-weight: 700">Qualität</dt><dd style="margin: 0; color: #3B3329">Nicht zufrieden mit dem Druck? Dann drucken wir dein Produkt neu.</dd>
           </dl>
-          <p style="margin: 0; font-size: 15px; color: #625545">Die genauen Versandkosten nennen wir dir mit deinem Angebot – noch bevor du bezahlst.</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #625545">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
         </div>
-      </div>
-      <p style="margin: -12px 0 24px; font-size: 14px; line-height: 1.5; color: #625545; max-width: 48em">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
-      <p role="note" style="margin: 0 0 28px; display: flex; align-items: flex-start; gap: 12px; max-width: 40em; background: #F2EDE5; padding: 14px 18px; font-size: 16px; line-height: 1.5">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="flex: none; margin-top: 1px; fill: none; stroke: #2B251E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M21 16l-5-5-8 8"></path></svg>
-        <span><b>Alle Bilder sind Beispielbilder und dienen zur Inspiration.</b><br>Dein Produkt gestalten wir nach deinen Wünschen – es kann daher vom Bild abweichen.</span>
-      </p>
+      </details>
       <nav aria-label="Zu einem Produkt springen" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px">
         <a href="#p-kot" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Kotbeutel-Spender</a>
         <a href="#p-marke" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Hundemarke</a>
@@ -388,13 +407,14 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         <a href="#p-litho" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Lithophanie</a>
         <a href="#p-idee" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Eigene Idee</a>
       </nav>
+      <p style="margin: -12px 0 24px; font-size: 14px; color: #625545">Alle Bilder sind Beispielbilder. Dein Produkt gestalten wir nach deinen Wünschen – es kann daher vom Bild abweichen.</p>
 
-      <article id="p-kot" aria-labelledby="h-kot" style="border-top: 2px solid #2B251E; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-kot" aria-labelledby="h-kot" style="border-top: 2px solid #2B251E; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="kot-1.jpg" alt="Zwölf Kotbeutel-Spender mit Karabiner, unter anderem als Knochen, Pfote, Hai, Dackel, Kürbis und Tennisball" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-kot" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Kotbeutel-Spender</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Damit die Beutel immer griffbereit und geschützt sind.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Hängt an der Leine oder am Gürtel. Die Rolle ist schnell gewechselt.</p>
@@ -407,10 +427,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Pfote</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Dackel</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Hai</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Tennisball</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Trinkflasche</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Halloween-Kürbis</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Fußball in Vereinsfarben</li>
+              <li class="more-chip" style="padding: 6px 12px; font-size: 15px">und vieles mehr</li>
             </ul>
           </div>
           <div>
@@ -428,12 +445,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-marke" aria-labelledby="h-marke" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-marke" aria-labelledby="h-marke" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="marke-1.jpg" alt="Fünfzehn Hundemarken in verschiedenen Formen und Farben, unter anderem Knochen, Herz, Pfote, Berg und Stern mit Namen wie Luna, Apollo und Milo" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-marke" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Hundemarke</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">In Form, Farbe und Text individualisierbar.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Leicht, robust und mit Öse für den Halsband-Ring.</p>
@@ -446,10 +463,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Herz</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Stern</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Berg</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Rund</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Sechseck</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Dog Tag</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Deine eigene Form</li>
+              <li class="more-chip" style="padding: 6px 12px; font-size: 15px">und vieles mehr</li>
             </ul>
           </div>
           <div>
@@ -484,12 +498,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-dose" aria-labelledby="h-dose" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-dose" aria-labelledby="h-dose" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="dose-1.jpg" alt="Fünfzehn Leckerli-Dosen mit Karabiner, unter anderem als Hund, Feuerhydrant, Mülltonne, Knochen, Pfote, Kürbis, Rentier und Gespenst" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-dose" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Leckerli-Dose</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Für zuhause oder unterwegs.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Klein für die Jackentasche oder groß als Vorrat in der Küche.</p>
@@ -502,11 +516,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Mülltonne</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Knochen</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Pfote</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Berg</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Kürbis</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Gespenst</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Rentier</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Weihnachtsmann</li>
+              <li class="more-chip" style="padding: 6px 12px; font-size: 15px">und vieles mehr</li>
             </ul>
           </div>
           <div>
@@ -524,7 +534,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-napf" aria-labelledby="h-napf" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-napf" aria-labelledby="h-napf" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <button type="button" class="ph" data-g="0" aria-label="Napf-Ständer: 4 Beispielbilder ansehen" style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="napf-3.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"><span class="phb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>4 Bilder</span></button>
           <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
@@ -534,7 +544,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           </div>
           <h3 id="h-napf" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Napf-Ständer</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Hebt den Napf auf eine angenehme Höhe.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Angenehm für große oder auch ältere Hunde – und nichts rutscht mehr über den Boden.</p>
@@ -563,12 +573,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-haken" aria-labelledby="h-haken" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-haken" aria-labelledby="h-haken" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="haken-1.jpg" alt="Leinen-Wandhaken in vielen Formen, unter anderem Hundekopf, Pfote, Berge, Knochen und Schild mit Good Dog, an der Wand mit Leinen und auf dem Tisch" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-haken" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Leinen-Wandhaken</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Ein fester Platz für Leine und Geschirr.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Kein Suchen mehr vor dem Gassigang.</p>
@@ -599,12 +609,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-gadget" aria-labelledby="h-gadget" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-gadget" aria-labelledby="h-gadget" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="gadget-1.jpg" alt="Alltags-Helfer: AirTag-Halter für Halsbänder, Leinenhalter am Kinderwagen, Pfeifen- und Clicker-Halter, Multifunktions-Clips und Namensschild-Halter" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-gadget" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Alltags-Gadgets</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Kleine, praktische Helfer für den Alltag.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Für die Dinge, die man im Laden nie findet.</p>
@@ -619,14 +629,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Namensschild-Halter</li>
             </ul>
           </div>
-          <div>
-            <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">So läuft es ab</h4>
-            <ul style="margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 17px; line-height: 1.45">
-              <li>Du beschreibst uns dein Problem</li>
-              <li>Wir entwerfen eine Lösung</li>
-              <li>Du bekommst von uns den Preis</li>
-            </ul>
-          </div>
+          <p style="margin: 0; font-size: 16px; color: #3B3329">Beschreib uns dein Problem – wir entwerfen die Lösung und nennen dir den Preis.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">Preis auf Anfrage</b>
             <div class="addw"><button type="button" class="btn-dark add" data-i="6" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="6" hidden><button type="button" data-sd="-1" data-k="6" aria-label="Alltags-Gadgets: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="6" aria-label="Alltags-Gadgets: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="6" hidden>In deiner Anfrage</span></div>
@@ -634,12 +637,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-deko" aria-labelledby="h-deko" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-deko" aria-labelledby="h-deko" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 4 / 3; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="deko-1.jpg" alt="Hundefiguren als Saison-Deko: mit Hexenhut, Hasenohren, Rentiergeweih, Weihnachtsmütze, als Gespenst und im Kürbis, dazu eine Schneekugel und ein Knochen-Anhänger" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-deko" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Deko</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Nach deinen Wünschen gestaltet – (fast) alles ist möglich.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Zum Aufstellen oder als Wanddekoration – für dein Zuhause, als Geschenk oder als Erinnerung.</p>
@@ -655,14 +658,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Christbaum-Anhänger</li>
             </ul>
           </div>
-          <div>
-            <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">Das kannst du anpassen</h4>
-            <ul style="margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 17px; line-height: 1.45">
-              <li>Größe – vom Regal bis zur Wand</li>
-              <li>Name, Datum oder Spruch</li>
-              <li>Ein- oder mehrfarbig</li>
-            </ul>
-          </div>
+          <p style="margin: 0; font-size: 16px; color: #3B3329">Anpassbar in Größe und Farbe, mit Name, Datum oder Spruch.</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 20px; border-top: 1px solid #C9BCA8">
             <b style="font-size: 22px; font-stretch: 112%">Preis auf Anfrage</b>
             <div class="addw"><button type="button" class="btn-dark add" data-i="7" style="min-height: 48px; padding: 0 24px; border: 0; background: #2B251E; color: #F2EDE5; font: 700 16px Archivo, sans-serif; cursor: pointer">Hinzufügen</button><div class="step" data-k="7" hidden><button type="button" data-sd="-1" data-k="7" aria-label="Deko: eins weniger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button><span class="n" aria-live="polite">1</span><button type="button" data-sd="1" data-k="7" aria-label="Deko: eins mehr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button></div><span class="added" data-a="7" hidden>In deiner Anfrage</span></div>
@@ -670,12 +666,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
         </div>
       </article>
 
-      <article id="p-litho" aria-labelledby="h-litho" style="border-top: 1px solid #B8AA94; padding: 44px 0 52px; display: flex; flex-wrap: wrap; gap: 32px 56px">
+      <article id="p-litho" aria-labelledby="h-litho" style="border-top: 1px solid #B8AA94; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
           <div style="aspect-ratio: 1312 / 1199; position: relative; background: #C9BCA8; overflow: hidden"><img loading="lazy" decoding="async" src="litho-1.jpg" alt="Beleuchtete Lithophanien mit Hundefotos in vielen Formen: rechteckig, rund, quadratisch, als Zylinder, Herz, Würfel, Hausform, Pfote und Kürbis" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-litho" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Lithophanie</h3>
         </div>
-        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
           <div style="display: flex; flex-direction: column; gap: 8px; max-width: 32em">
             <p style="margin: 0; font-size: 22px; line-height: 1.35; font-weight: 600">Dein Lieblingsfoto, gedruckt in Licht.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B3329">Ohne Licht ein feines weißes Relief. Mit Licht dahinter erscheint dein Foto – in Schwarz-Weiß oder sogar in Farbe.</p>
@@ -688,10 +684,7 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Quadratisch</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Zylinder</li>
               <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Herz</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Würfel</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Hausform</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Pfote</li>
-              <li style="background: #F2EDE5; padding: 6px 12px; font-size: 15px">Kürbis</li>
+              <li class="more-chip" style="padding: 6px 12px; font-size: 15px">und vieles mehr</li>
             </ul>
           </div>
           <div>
@@ -752,10 +745,10 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
           <label>Gutschein- oder Rabattcode (optional)<input id="code" maxlength="30" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="falls vorhanden"></label>
           <label>Weitere Anmerkungen (optional)<textarea id="wunsch" maxlength="600" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea></label>
           <div class="hp" aria-hidden="true"><label>Website<input id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
-          <p class="vbnote vb-only"><b>Hinweis:</b> Deine Bestellung ist eine Vorbestellung. Wir melden uns mit deinem Angebot und beginnen am 20. November mit Fertigung und Versand.</p>
+          <p class="vbnote vb-only"><b>Hinweis:</b> Deine Anfrage ist eine Vorbestellung. Wir melden uns mit deinem Angebot und starten am 20. November mit Fertigung und Versand.</p>
           <button class="fbtn submit" type="submit">Anfrage abschicken</button>
-          <a class="fbtn wa" id="waBtn" href="https://wa.me/4915239606028" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5l1.3-3.6A8 8 0 1 1 8.3 19z"/><path d="M9.2 8.6c.3 2.6 2.4 4.9 5.2 5.4l1.1-1.2 1.9.9-.4 1.6c-3.9.3-8.3-3.7-8.1-7.8l1.6-.4.9 1.9z"/></svg>Lieber per WhatsApp bestellen</a>
-          <p class="dsh">Infos zu deinen Daten findest du in unserer <a href="datenschutz.html">Datenschutzerklärung</a>, Infos zum Widerruf <a href="widerruf.html">hier</a>.</p>
+          <a class="fbtn wa" id="waBtn" href="https://wa.me/4915239606028" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5l1.3-3.6A8 8 0 1 1 8.3 19z"/><path d="M9.2 8.6c.3 2.6 2.4 4.9 5.2 5.4l1.1-1.2 1.9.9-.4 1.6c-3.9.3-8.3-3.7-8.1-7.8l1.6-.4.9 1.9z"/></svg>Lieber per WhatsApp anfragen</a>
+          <p class="dsh">Wie wir deine Daten verarbeiten, steht in der <a href="datenschutz.html">Datenschutzerklärung</a>. Alles zur Rückgabe findest du unter <a href="widerruf.html">Widerruf</a>.</p>
           <p class="err" id="err" role="alert" hidden></p>
         </div>
       </form>
@@ -763,9 +756,8 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
       </div>
       <div id="thanks" role="status" tabindex="-1" hidden>
         <h3>Danke dir!</h3>
-        <p>Schön, dass du bei HT-Print gestöbert hast.</p>
-        <p class="vb-only">Du gehörst zu den Ersten! Ab dem 20. November geht’s los mit Fertigung und Versand.</p>
         <p>Deine Anfrage ist bei uns angekommen. Wir kümmern uns persönlich darum und melden uns mit Preis und Details bei dir.</p>
+        <p class="vb-only">Du gehörst zu den Ersten! Ab dem 20. November geht’s los mit Fertigung und Versand.</p>
         <p class="ono" id="onoBox" hidden>Deine Bestellnummer<b id="onoV"></b><span>Bitte gib sie bei Rückfragen und bei deiner Bewertung an.</span></p>
         <p>Du erreichst uns auch direkt unter <a href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
         <p class="sign">Bis bald, dein HT-Print-Team</p>
@@ -845,10 +837,12 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
     </div>
   </section>
 
+  </main>
+
   <footer style="background: #2B251E; color: #C9BCA8; padding: 48px 32px">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center; justify-content: space-between">
       <img loading="lazy" src="logo-hell.png" width="1251" height="588" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" style="height: 84px; width: auto; display: block">
-      <p class="foot" style="margin: 0; display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 16px"><a href="#gaestebuch" style="color: #E4DBCD">Gästebuch</a><a href="https://wa.me/4915239606028" target="_blank" rel="noopener" style="color: #E4DBCD">WhatsApp</a><a href="mailto:htprints@yahoo.com" style="color: #E4DBCD">E-Mail</a><a href="impressum.html" style="color: #E4DBCD">Impressum</a><a href="datenschutz.html" style="color: #E4DBCD">Datenschutz</a><a href="widerruf.html" style="color: #E4DBCD">Widerruf</a></p>
+      <p class="foot" style="margin: 0; display: flex; flex-wrap: wrap; gap: 0 24px; font-size: 16px"><a href="#gaestebuch" style="color: #E4DBCD">Gästebuch</a><a href="#unternehmen" style="color: #E4DBCD">Für Unternehmen</a><a href="https://wa.me/4915239606028" target="_blank" rel="noopener" style="color: #E4DBCD">WhatsApp</a><a href="mailto:htprints@yahoo.com" style="color: #E4DBCD">E-Mail</a><a href="impressum.html" style="color: #E4DBCD">Impressum</a><a href="datenschutz.html" style="color: #E4DBCD">Datenschutz</a><a href="widerruf.html" style="color: #E4DBCD">Widerruf</a></p>
     </div>
   </footer>
 
@@ -931,7 +925,7 @@ function bundlePct(t){return t>=3?10:0}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
 function findIt(k){k=String(k);for(var i=0;i<items.length;i++)if(items[i].key===k)return items[i];return null}
 function updBundle(){var el=$("bundle"),t=totalQty();el.hidden=!items.length;
- if(t<3){var need=3-t;el.innerHTML="Noch "+need+(need===1?" Produkt":" Produkte")+", dann sparst du <b>10 %</b> Rabatt.";return}
+ if(t<3){var need=3-t;el.innerHTML="Noch "+need+(need===1?" Produkt":" Produkte")+", dann bekommst du <b>10 %</b> Rabatt.";return}
  el.innerHTML="<b>"+t+" Produkte · 10 % Rabatt</b>"}
 function bump(){[$("navGo"),$("pill")].forEach(function(el){if(!el)return;el.classList.remove("bump");void el.offsetWidth;el.classList.add("bump")})}
 function render(){
@@ -946,7 +940,7 @@ function render(){
  $("itemsH").textContent="Deine Auswahl"+(n?" ("+tq+")":"");
  $("empty").hidden=n>0;
  var ul=$("items");ul.hidden=n===0;
- ul.innerHTML=items.map(function(it,i){return '<li class="it"><div class="it-top"><b>'+esc(it.name)+'</b><span class="qty"><button type="button" data-qd="-1" data-qi="'+i+'" aria-label="'+esc(it.name)+': eins weniger">'+MINUS+'</button><span>'+it.qty+'×</span><button type="button" data-qd="1" data-qi="'+i+'" aria-label="'+esc(it.name)+': eins mehr"'+(it.qty>=10?" disabled":"")+'>'+PLUS+'</button></span><button type="button" class="rm" data-rm="'+i+'" aria-label="'+esc(it.name)+' entfernen">Entfernen</button></div><input data-w="'+i+'" maxlength="300" value="'+esc(it.wish)+'" placeholder="'+(it.name===EIGEN?"Beschreib uns deine Idee":"Wünsche, z. B. Name, Form, Farbe, Größe")+'" aria-label="Wünsche für '+esc(it.name)+'"></li>'}).join("");
+ ul.innerHTML=items.map(function(it,i){return '<li class="it"><div class="it-top"><b>'+esc(it.name)+'</b><span class="qty"><button type="button" data-qd="-1" data-qi="'+i+'" aria-label="'+esc(it.name)+': eins weniger">'+MINUS+'</button><span>'+it.qty+'×</span><button type="button" data-qd="1" data-qi="'+i+'" aria-label="'+esc(it.name)+': eins mehr"'+(it.qty>=10?" disabled":"")+'>'+PLUS+'</button></span><button type="button" class="rm" data-rm="'+i+'" aria-label="'+esc(it.name)+' entfernen">Entfernen</button></div><input data-w="'+i+'" maxlength="300" value="'+esc(it.wish)+'" placeholder="'+(it.name===EIGEN?"Beschreib uns deine Idee":"z. B. Name, Form, Farbe")+'" aria-label="Wünsche für '+esc(it.name)+'"></li>'}).join("");
 }
 g.addEventListener("click",function(e){
  var s=e.target.closest("[data-sd]");
@@ -988,10 +982,10 @@ $("f").addEventListener("submit",function(e){
  if(!liefer){fail("Bitte wähle, ob du dein Produkt abholen oder geschickt bekommen möchtest.");return}
  if(!name){fail("Bitte gib deinen Namen an.");return}
  var LINK=/https?:\/\/|www\./i;
- if(code&&!/^[A-Z0-9-]{2,30}$/.test(code)){fail("Der Code darf nur Buchstaben, Zahlen und Bindestriche enthalten.");return}
- if([name,note].concat(items.map(function(it){return it.wish})).some(function(t){return LINK.test(t)})){fail("Bitte lass Links aus dem Text weg.");return}
+ if(code&&!/^[A-Z0-9-]{2,30}$/.test(code)){fail("Der Rabattcode darf nur Buchstaben, Zahlen und Bindestriche enthalten.");return}
+ if([name,note].concat(items.map(function(it){return it.wish})).some(function(t){return LINK.test(t)})){fail("Bitte entferne Internet-Adressen (www oder http) aus deinem Text. Aus Sicherheitsgründen können wir sie nicht annehmen.");return}
  var okMail=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(kontakt),okTel=/^[\d\s+()\/.-]{6,}$/.test(kontakt)&&kontakt.replace(/\D/g,"").length>=6;
- if(!okMail&&!okTel){fail("Bitte gib eine gültige E-Mail-Adresse oder Telefonnummer an.");return}
+ if(!okMail&&!okTel){fail("Bitte gib eine E-Mail-Adresse (zum Beispiel name@beispiel.de) oder eine Telefonnummer an, damit wir dir antworten können.");return}
  try{var sentL=JSON.parse(localStorage.getItem("htp_sent")||"[]").filter(function(t){return Date.now()-t<864e5});
   if((sentL.length&&Date.now()-sentL[sentL.length-1]<30000)||sentL.length>=5){fail('Du hast gerade schon eine Anfrage geschickt. Bitte versuch es später noch einmal oder schreib uns direkt an <a href="mailto:'+CONTACT_EMAIL+'">'+CONTACT_EMAIL+'</a>.');return}}catch(x){}
  var ono=orderNo();
@@ -1019,7 +1013,7 @@ $("again").addEventListener("click",function(){$("f").reset();render();show(fals
  function msg(){
   var t="Hallo HT-Print, ";
   if(items.length){var on=orderNo();keepOrder(on);
-   t+="ich möchte gerne bestellen (Bestellnummer "+on+"):\n";
+   t+="ich möchte gerne folgende Produkte anfragen (Bestellnummer "+on+"):\n";
    items.forEach(function(it,i){t+=(i+1)+". "+(it.qty>1?it.qty+"× ":"")+it.name+(it.wish?" – "+it.wish:"")+"\n"});
    var tq=totalQty();if(bundlePct(tq))t+="\nBundle-Rabatt: "+bundlePct(tq)+" % ("+tq+" Produkte)\n";
    var cc=$("code");if(cc.value.trim())t+="Rabattcode: "+cc.value.trim().toUpperCase()+"\n";
@@ -1051,7 +1045,7 @@ var REVIEWS=[
 (function(){
  var box=$("revs"),avg=$("avg"),SV='<path d="M12 3.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z"/>';
  function st(n){var s="";for(var i=1;i<=5;i++)s+='<svg viewBox="0 0 24 24"'+(i>n?' class="off"':'')+'>'+SV+'</svg>';return s}
- if(!REVIEWS.length){box.innerHTML='<p class="gb-empty">Noch keine Bewertungen – sei der oder die Erste!</p>'}
+ if(!REVIEWS.length){box.innerHTML='<p class="gb-empty">Die ersten Bewertungen erscheinen hier nach unseren ersten Lieferungen. Wir freuen uns auf deine!</p>'}
  else{var sum=REVIEWS.reduce(function(s,r){return s+r.sterne},0),a=sum/REVIEWS.length;
   avg.innerHTML='<span class="rst" aria-hidden="true">'+st(Math.round(a))+'</span>'+a.toFixed(1).replace(".",",")+' von 5 · '+REVIEWS.length+(REVIEWS.length===1?" Bewertung":" Bewertungen");avg.hidden=false;
   box.innerHTML=REVIEWS.map(function(r){return '<figure class="rev"><div class="rst" role="img" aria-label="'+r.sterne+' von 5 Sternen">'+st(r.sterne)+'</div><blockquote>„'+esc(r.text)+'“</blockquote><figcaption><b>'+esc(r.name)+'</b>'+(r.produkt?' · '+esc(r.produkt):'')+(r.datum?' · '+esc(r.datum):'')+'</figcaption>'+(r.bilder&&r.bilder.length?'<div class="rimgs">'+r.bilder.map(function(src){return '<a href="'+esc(src)+'" target="_blank" rel="noopener"><img src="'+esc(src)+'" alt="Foto von '+esc(r.name)+'" loading="lazy"></a>'}).join("")+'</div>':'')+'</figure>'}).join("")}
@@ -1098,6 +1092,13 @@ var REVIEWS=[
 /* ===== Vorbestellung: Hinweise verschwinden ab dem 20. November automatisch ===== */
 (function(){
  if(Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))[].forEach.call(document.querySelectorAll(".vb-only"),function(e){e.hidden=true});
+})();
+
+/* ===== Gästebuch erst zeigen, wenn es Bewertungen gibt oder die ersten Lieferungen laufen (ab 20.11.) ===== */
+(function(){
+ if(REVIEWS.length||Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))return;
+ var gb=$("gaestebuch");if(gb)gb.hidden=true;
+ [].forEach.call(document.querySelectorAll('a[href="#gaestebuch"]'),function(a){a.hidden=true});
 })();
 
 </script>
