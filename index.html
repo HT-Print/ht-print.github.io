@@ -278,6 +278,58 @@ button[aria-label="Hilfe und Kontakt"]{background:rgba(43,37,30,.78) !important;
 .it input::placeholder{color:#A89A86}
 .pill{box-shadow:0 8px 24px rgba(43,37,30,.30)}
 
+/* ===== Kachel-Ansicht ===== */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin:8px 0 32px}
+.kcard{display:flex;flex-direction:column;background:#F2EDE5;border-radius:22px;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 10px 24px rgba(74,55,35,.08);transition:transform 200ms cubic-bezier(.16,1,.3,1),box-shadow 200ms ease}
+.kcard:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(74,55,35,.14)}
+.kopen{display:flex;flex-direction:column;text-align:left;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit;flex:1}
+.kopen:focus-visible{outline:2px solid #2B251E;outline-offset:-4px;border-radius:22px}
+.kmedia{aspect-ratio:4/3;background:#C9BCA8;overflow:hidden}
+.kmedia img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 400ms cubic-bezier(.16,1,.3,1)}
+.kcard:hover .kmedia img{transform:scale(1.04)}
+.kbody{padding:16px 18px 6px;display:flex;flex-direction:column;gap:6px}
+.kname{margin:0;font-size:20px;line-height:1.15;font-weight:800;font-stretch:112%}
+.klead{margin:0;font-size:15px;line-height:1.45;color:#3B3329}
+.kmore{font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;color:#2B251E;margin-top:2px}
+.kcard .kprice{padding:12px 18px 18px !important;border-top:0 !important;gap:12px !important;margin-top:auto}
+.kcard .kprice b{font-size:19px !important}
+.kcard .kprice .btn-dark{min-height:44px !important;padding:0 18px !important;font-size:15px !important}
+.ksheet{border:0;padding:0;width:min(960px,94vw);max-height:90vh;border-radius:24px;background:#E4DBCD;color:#2B251E;box-shadow:0 30px 80px rgba(43,37,30,.35);overflow:hidden;flex-direction:column}
+.ksheet[open]{display:flex}
+.ksheet::backdrop{background:rgba(43,37,30,.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.khead{display:flex;justify-content:flex-end;padding:12px 12px 0}
+.kclose{width:44px;height:44px;border-radius:50%;border:0;background:#F2EDE5;display:grid;place-items:center;cursor:pointer;color:#2B251E}
+.kclose svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.kinner{overflow:auto;padding:0 32px 24px;display:flex;flex-wrap:wrap;gap:24px 40px}
+.kinner > div:first-child{flex:1 1 300px !important;min-width:0}
+.kinner > div:last-child{flex:1.3 1 360px;min-width:0}
+.kfoot{padding:12px 32px 20px;border-top:1px solid #C9BCA8;background:#E4DBCD;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.kfprice{font-size:20px;font-stretch:112%;margin-right:auto}
+.kadd{width:auto;background:#2B251E;color:#F2EDE5;padding:0 24px}
+.kgo{background:none !important;color:#2B251E !important;box-shadow:inset 0 0 0 2px #2B251E}
+.kgo{width:auto;background:#2B251E;color:#F2EDE5;padding:0 24px}
+@keyframes sheetin{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.ksheet[open]{animation:sheetin 280ms cubic-bezier(.16,1,.3,1)}
+@media (max-width:600px){
+ .kgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .kcard{border-radius:18px}
+ .kbody{padding:12px 12px 4px;gap:4px}
+ .kname{font-size:16px}
+ .klead{display:none}
+ .kmore{font-size:13px}
+ .kcard .kprice{padding:8px 12px 12px !important;flex-direction:column;align-items:flex-start !important;gap:8px !important}
+ .kcard .kprice b{font-size:17px !important}
+ .kcard .kprice .btn-dark{min-height:40px !important;width:100%}
+ .kcard .kprice .addw{width:100%}
+ .kcard .step{width:100%;justify-content:space-between}
+ .kcard .added{display:none}
+ .ksheet{width:100vw;max-width:100vw;max-height:88vh;margin:auto 0 0;border-radius:24px 24px 0 0}
+ .kinner{padding:0 18px 18px}
+ .kfoot{padding:10px 18px 16px}
+ .kadd,.kgo{flex:1 1 40%}
+}
+@media (prefers-reduced-motion:reduce){.ksheet[open]{animation:none}.kcard,.kmedia img{transition:none}}
+
 </style>
 </head>
 <body>
@@ -1099,6 +1151,61 @@ var REVIEWS=[
  if(REVIEWS.length||Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))return;
  var gb=$("gaestebuch");if(gb)gb.hidden=true;
  [].forEach.call(document.querySelectorAll('a[href="#gaestebuch"]'),function(a){a.hidden=true});
+})();
+
+/* ===== Kachel-Ansicht ===== */
+(function(){
+ var sec=$("produkte"),arts=[].slice.call(sec.querySelectorAll('article[id^="p-"]:not(#p-idee)'));
+ if(!arts.length)return;
+ var grid=document.createElement("div");grid.className="kgrid";
+ arts[0].parentNode.insertBefore(grid,arts[0]);
+ var CLOSE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+ arts.forEach(function(a){
+  var cols=a.children,left=cols[0],right=cols[1];
+  var h3=left.querySelector("h3"),img=left.querySelector('div[style*="aspect-ratio"],button.ph');
+  var priceRow=right.lastElementChild;               // Preis + Hinzufügen
+  if(priceRow.id==="nfc")priceRow=right.children[right.children.length-2];
+  var lead=right.querySelector("p");
+  var card=document.createElement("div");card.className="kcard";
+  var open=document.createElement("button");open.type="button";open.className="kopen";
+  open.setAttribute("aria-label",h3.textContent+": Details ansehen");
+  var media=document.createElement("div");media.className="kmedia";
+  var im=img.querySelector("img").cloneNode();im.removeAttribute("style");im.alt="";media.appendChild(im);
+  open.appendChild(media);
+  var body=document.createElement("div");body.className="kbody";
+  body.innerHTML='<h3 class="kname">'+h3.textContent+'</h3><p class="klead">'+lead.textContent+'</p><span class="kmore">Details und Möglichkeiten</span>';
+  open.appendChild(body);
+  card.appendChild(open);
+  priceRow.classList.add("kprice");card.appendChild(priceRow);
+  // Dialog mit allen Details
+  var dlg=document.createElement("dialog");dlg.className="ksheet";dlg.setAttribute("aria-labelledby",h3.id);
+  var head=document.createElement("div");head.className="khead";
+  head.innerHTML='<button type="button" class="kclose" aria-label="Schließen">'+CLOSE+'</button>';
+  dlg.appendChild(head);
+  var inner=document.createElement("div");inner.className="kinner";inner.tabIndex=0;inner.setAttribute("role","region");inner.setAttribute("aria-label","Details");
+  left.style.flex="none";inner.appendChild(left);inner.appendChild(right);
+  var foot=document.createElement("div");foot.className="kfoot";
+  var price=priceRow.querySelector("b").textContent;
+  foot.innerHTML='<b class="kfprice">'+price+'</b><button type="button" class="fbtn kadd">Hinzufügen</button><button type="button" class="fbtn kgo">Zur Übersicht</button>';
+  foot.querySelector(".kadd").addEventListener("click",function(){var b=priceRow.querySelector("button[data-i]");if(b&&!b.hidden)b.click();else{var pl=priceRow.querySelector('[data-sd="1"]');if(pl)pl.click()}dlg.close()});
+  dlg.appendChild(inner);dlg.appendChild(foot);
+  card.appendChild(dlg);
+  open.addEventListener("click",function(){dlg.showModal();document.body.style.overflow="hidden"});
+  function close(){dlg.close()}
+  dlg.addEventListener("close",function(){document.body.style.overflow="";open.focus()});
+  head.querySelector(".kclose").addEventListener("click",close);
+  foot.querySelector(".kgo").addEventListener("click",close);
+  dlg.addEventListener("click",function(e){if(e.target===dlg)close()});
+  // Galerie (Napf-Ständer) über dem Fenster öffnen
+  dlg.addEventListener("click",function(e){if(e.target.closest("[data-g]"))dlg.close()},true);
+  grid.appendChild(card);a.remove();
+ });
+ // Sprung-Knöpfe öffnen die passende Kachel
+ [].forEach.call(document.querySelectorAll('a.chipnav[href^="#p-"]'),function(c){
+  var id=c.getAttribute("href").slice(1);if(id==="p-idee")return;
+  c.addEventListener("click",function(e){var h=document.getElementById("h-"+id.slice(2));if(!h)return;e.preventDefault();
+   var card=h.closest(".kcard");card.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(function(){card.querySelector(".kopen").click()},450)});
+ });
 })();
 
 </script>
