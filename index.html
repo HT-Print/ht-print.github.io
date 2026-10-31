@@ -378,6 +378,12 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
 .toast.on{transform:none}
 @media (prefers-reduced-motion:reduce){.toast{transform:none}}
 
+/* Anfrage gesperrt bis zum Vorbestellstart */
+.sperre{margin:0;padding:12px 14px;border-radius:14px;background:rgba(228,219,205,.10);border:1px solid rgba(228,219,205,.35);font-size:15px;line-height:1.45;color:#E4DBCD}
+.sperre b{display:block;color:#F2EDE5}
+.fbtn.aus,.fbtn.aus:hover,.submit.aus:disabled{background:#4A4034 !important;color:#A89A86 !important;cursor:not-allowed;opacity:1;transform:none;box-shadow:none}
+.fbtn.aus svg{opacity:.6}
+
 </style>
 </head>
 <body>
@@ -386,14 +392,14 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
   <section id="intro" aria-label="Willkommen" style="min-height: 100vh; box-sizing: border-box; padding: 40px 24px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center; background: #E2D6C7; overflow: hidden">
     <img id="introLogo" src="logo-3d.jpg" width="1536" height="1024" fetchpriority="high" alt="HT-Print – Von Hundebesitzern für Hundebesitzer" class="introlog" style="width: min(860px, 124%, 82vh); max-width: none; flex: none; height: auto; display: block; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%)">
     <p class="fade-o" style="margin: 0; font-size: 21px; color: #3B3329">Individuelles Hundezubehör aus dem 3D-Druck</p>
-    <p class="fade-o vb-only" style="margin: -10px 0 0; font-size: 16px; font-weight: 600"><span class="vb-pill">Jetzt vorbestellen</span> Versand ab 20. November</p>
+    <p class="fade-o vb-only" style="margin: -10px 0 0; font-size: 16px; font-weight: 600"><span class="vb-pill" data-ab="Jetzt vorbestellen">Vorbestellen ab 13. Dezember</span> Versand ab Januar</p>
     <a href="#start" id="goPage" class="gogo fade-o" style="display: inline-flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; margin-top: 6px">Zur Seite
       <span aria-hidden="true" class="bob" style="width: 52px; height: 52px; border: 2px solid #2B251E; border-radius: 50%; display: grid; place-items: center"><svg viewBox="0 0 24 24" width="22" height="22" style="fill: none; stroke: #2B251E; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round"><path d="M5 9l7 7 7-7"></path></svg></span>
     </a>
   </section>
 
   <nav id="start" tabindex="-1" aria-label="Hauptmenü" style="padding: 0 32px; border-top: 1px solid #C9BCA8">
-    <p class="vb vb-only" style="margin: 0 auto; max-width: 1200px; padding: 10px 0 0; text-align: center; font-size: 15px; font-weight: 600"><span class="vb-pill">Jetzt vorbestellen</span> Versand und Abholung ab 20. November – rechtzeitig vor Weihnachten.</p>
+    <p class="vb vb-only" style="margin: 0 auto; max-width: 1200px; padding: 10px 0 0; text-align: center; font-size: 15px; font-weight: 600"><span class="vb-pill" data-ab="Jetzt vorbestellen">Vorbestellen ab 13. Dezember</span> Fertigung, Versand und Abholung ab dem 1. Januar.</p>
     <div style="max-width: 1200px; margin: 0 auto; min-height: 84px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px">
       <a href="#start" aria-label="HT-Print" style="display: block"><img src="logo-nav.png" alt="HT-Print" width="1069" height="491" class="navlogo" style="height: 48px; width: auto; display: block"></a>
       <div class="navrow" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; font-size: 16px; font-weight: 600">
@@ -479,7 +485,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
         <li class="fact"><b>10 %</b> ab 3 Produkten</li>
         <li class="fact"><b>Abholung</b> kostenlos</li>
         <li class="fact"><b>Versand</b> ab 5 €</li>
-        <li class="fact vb-only"><b>Vorbestellung</b> Versand ab 20. November</li>
+        <li class="fact vb-only"><b>Vorbestellung</b> <span data-ab="läuft, Versand ab Januar">ab 13. Dezember</span></li>
       </ul>
       <details id="versand" class="more" style="margin: 0 0 22px; max-width: 48em">
         <summary style="cursor: pointer; font-weight: 700; font-size: 15px; min-height: 44px; display: inline-flex; align-items: center">Mehr zu Versand, Zahlung und Qualität</summary>
@@ -487,7 +493,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
           <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 18px; font-size: 16px; line-height: 1.45">
             <dt style="font-weight: 700">Abholung</dt><dd style="margin: 0; color: #3B3329">kostenlos, nach Absprache</dd>
             <dt style="font-weight: 700">Versand</dt><dd style="margin: 0; color: #3B3329">innerhalb Deutschlands ab 5 €, versichert und mit Sendungsverfolgung. Die genauen Kosten nennen wir dir mit deinem Angebot.</dd>
-            <dt class="vb-only" style="font-weight: 700">Vorbestellung</dt><dd class="vb-only" style="margin: 0; color: #3B3329">Ab dem 20. November fertigen und verschicken wir alle Bestellungen der Reihe nach.</dd>
+            <dt class="vb-only" style="font-weight: 700">Vorbestellung</dt><dd class="vb-only" style="margin: 0; color: #3B3329">Vorbestellen kannst du ab dem 13. Dezember. Ab dem 1. Januar fertigen und verschicken wir alle Bestellungen der Reihe nach.</dd>
             <dt style="font-weight: 700">Fertigung</dt><dd style="margin: 0; color: #3B3329">ca. 5–10 Werktage, da jedes Produkt für dich gedruckt wird</dd>
             <dt style="font-weight: 700">Zahlung</dt><dd style="margin: 0; color: #3B3329">PayPal oder Überweisung</dd>
             <dt style="font-weight: 700">Qualität</dt><dd style="margin: 0; color: #3B3329">Nicht zufrieden mit dem Druck? Dann drucken wir dein Produkt neu.</dd>
@@ -836,6 +842,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
           <p class="bundle" id="bundle" aria-live="polite" hidden></p>
         </div>
         <div class="fields">
+          <p class="sperre" id="sperre" hidden><b>Anfragen sind ab dem 13. Dezember möglich.</b> Du kannst dir aber schon jetzt Produkte aussuchen, deine Auswahl bleibt gespeichert.</p>
           <fieldset class="liefer"><legend>Wie möchtest du dein Produkt bekommen?</legend>
             <label class="opt"><input type="radio" name="liefer" value="Abholung"><span><b>Abholung</b><small>kostenlos, nach Absprache</small></span></label>
             <label class="opt"><input type="radio" name="liefer" value="Versand"><span><b>Versand</b><small>ab 5 €, genauer Preis kommt mit dem Angebot</small></span></label>
@@ -845,7 +852,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
           <label>Gutschein- oder Rabattcode (optional)<input id="code" maxlength="30" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="falls vorhanden"></label>
           <label>Weitere Anmerkungen (optional)<textarea id="wunsch" maxlength="600" placeholder="z. B. Lieferwunsch oder eine Frage an uns"></textarea></label>
           <div class="hp" aria-hidden="true"><label>Website<input id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
-          <p class="vbnote vb-only"><b>Hinweis:</b> Deine Anfrage ist eine Vorbestellung. Wir melden uns mit deinem Angebot und starten am 20. November mit Fertigung und Versand.</p>
+          <p class="vbnote vb-only"><b>Hinweis:</b> Deine Anfrage ist eine Vorbestellung. Wir melden uns mit deinem Angebot und starten am 1. Januar mit Fertigung und Versand.</p>
           <noscript><p class="err">Das Formular braucht JavaScript. Schreib uns sonst einfach per <a href="https://wa.me/4915239606028">WhatsApp</a> oder an <a href="mailto:htprints@yahoo.com">htprints@yahoo.com</a>.</p></noscript>
           <button class="fbtn submit" type="submit">Anfrage abschicken</button>
           <a class="fbtn wa" id="waBtn" href="https://wa.me/4915239606028" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5l1.3-3.6A8 8 0 1 1 8.3 19z"/><path d="M9.2 8.6c.3 2.6 2.4 4.9 5.2 5.4l1.1-1.2 1.9.9-.4 1.6c-3.9.3-8.3-3.7-8.1-7.8l1.6-.4.9 1.9z"/></svg>Lieber per WhatsApp anfragen</a>
@@ -859,7 +866,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
         <div class="stamp"><svg class="paw" viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="31" rx="9" ry="8"/><circle cx="12" cy="20" r="4.2"/><circle cx="20" cy="12" r="4.2"/><circle cx="28" cy="12" r="4.2"/><circle cx="36" cy="20" r="4.2"/></svg></div>
         <h3>Danke dir!</h3>
         <p>Deine Anfrage ist bei uns angekommen. Wir kümmern uns persönlich darum und melden uns mit Preis und Details bei dir.</p>
-        <p class="vb-only">Du gehörst zu den Ersten! Ab dem 20. November geht’s los mit Fertigung und Versand.</p>
+        <p class="vb-only">Du gehörst zu den Ersten! Ab dem 1. Januar geht’s los mit Fertigung und Versand.</p>
         <p class="ono" id="onoBox" hidden>Deine Bestellnummer<b id="onoV"></b><span>Bitte gib sie bei Rückfragen und bei deiner Bewertung an.</span></p>
         <p>Du erreichst uns auch direkt unter <a href="mailto:htprints@yahoo.com">htprints@yahoo.com</a></p>
         <p class="sign">Bis bald, dein HT-Print-Team</p>
@@ -877,7 +884,7 @@ body{font-kerning:normal;font-feature-settings:"kern" 1}
         </details>
         <details>
           <summary>Wann bekomme ich mein Produkt?</summary>
-          <p>Alle Bestellungen bis zum 20. November sind Vorbestellungen – ab dann fertigen und verschicken wir der Reihe nach. Danach dauert die Fertigung ca. 5–10 Werktage, dazu kommt der Versand.</p>
+          <p>Ab dem 13. Dezember kannst du vorbestellen. Ab dem 1. Januar fertigen und verschicken wir alle Bestellungen der Reihe nach. Danach dauert die Fertigung ca. 5–10 Werktage, dazu kommt der Versand.</p>
         </details>
         <details>
           <summary>Was kostet der Versand?</summary>
@@ -1073,7 +1080,7 @@ function toast(msg,undo){var t=$("toast");if(!t){t=document.createElement("div")
  t.classList.add("on");toastT=setTimeout(function(){t.classList.remove("on")},undo?6000:2600)}
 /* Auswahl bleibt gespeichert */
 function saveSel(){try{localStorage.setItem("htp_sel",JSON.stringify({t:Date.now(),items:items}))}catch(x){}}
-(function(){try{var d=JSON.parse(localStorage.getItem("htp_sel")||"null");if(d&&Date.now()-d.t<14*864e5&&d.items&&d.items.length)items=d.items.filter(function(it){return it&&it.name&&(it.key==="custom"?it.name===EIGEN:P[it.key]===it.name)}).map(function(it){return {key:String(it.key),name:it.name,wish:String(it.wish||"").slice(0,300),qty:Math.max(1,Math.min(10,+it.qty||1))}})}catch(x){}})();
+(function(){try{var d=JSON.parse(localStorage.getItem("htp_sel")||"null");if(d&&Date.now()-d.t<60*864e5&&d.items&&d.items.length)items=d.items.filter(function(it){return it&&it.name&&(it.key==="custom"?it.name===EIGEN:P[it.key]===it.name)}).map(function(it){return {key:String(it.key),name:it.name,wish:String(it.wish||"").slice(0,300),qty:Math.max(1,Math.min(10,+it.qty||1))}})}catch(x){}})();
 function render(){
  saveSel();
  updBundle();
@@ -1117,6 +1124,7 @@ render();
 
 $("f").addEventListener("submit",function(e){
  e.preventDefault();
+ if(gesperrt())return;
  var v=function(id){return $(id).value.trim()};
  var btn=document.querySelector("#f .submit"),err=$("err");
  function fail(m,id){err.innerHTML=m;err.hidden=false;
@@ -1175,7 +1183,7 @@ $("again").addEventListener("click",function(){$("f").reset();render();show(fals
   var n=$("name");if(n.value.trim())t+="\nViele Grüße\n"+n.value.trim();
   return "https://wa.me/"+WA_NR+"?text="+encodeURIComponent(t);
  }
- $("waBtn").addEventListener("click",function(){this.href=msg()});
+ $("waBtn").addEventListener("click",function(e){if(gesperrt()){e.preventDefault();return}this.href=msg()});
  var sup=$("sup"),sb=$("supBtn"),sp=$("supPop");
  function setPop(o){sp.hidden=!o;sb.setAttribute("aria-expanded",o?"true":"false")}
  sb.addEventListener("click",function(e){e.stopPropagation();setPop(sp.hidden)});
@@ -1243,14 +1251,23 @@ var REVIEWS=[
  im.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)show(k+(dx<0?1:-1));sx=null});
 })();
 
-/* ===== Vorbestellung: Hinweise verschwinden ab dem 20. November automatisch ===== */
+/* ===== Termine: Vorbestellung ab 13.12.2026, Fertigung und Versand ab 1.1.2027 ===== */
+var VB_START=Date.parse("2026-12-13T00:00:00+01:00"),LOS=Date.parse("2027-01-01T00:00:00+01:00");
+function gesperrt(){return Date.now()<VB_START}
 (function(){
- if(Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))[].forEach.call(document.querySelectorAll(".vb-only"),function(e){e.hidden=true});
+ var now=Date.now();
+ if(now>=LOS)[].forEach.call(document.querySelectorAll(".vb-only"),function(e){e.hidden=true});
+ if(now>=VB_START)[].forEach.call(document.querySelectorAll("[data-ab]"),function(e){e.textContent=e.getAttribute("data-ab")});
+ if(!gesperrt())return;
+ var sp=$("sperre"),sb=document.querySelector("#f .submit"),wa=$("waBtn");
+ if(sp)sp.hidden=false;
+ if(sb){sb.disabled=true;sb.classList.add("aus");sb.setAttribute("aria-describedby","sperre")}
+ if(wa){wa.classList.add("aus");wa.setAttribute("aria-disabled","true");wa.removeAttribute("href");wa.removeAttribute("target");wa.setAttribute("aria-describedby","sperre")}
 })();
 
-/* ===== Gästebuch erst zeigen, wenn es Bewertungen gibt oder die ersten Lieferungen laufen (ab 20.11.) ===== */
+/* ===== Gästebuch erst zeigen, wenn es Bewertungen gibt oder die ersten Lieferungen laufen (ab 1.1.) ===== */
 (function(){
- if(REVIEWS.length||Date.now()>=Date.parse("2026-11-20T00:00:00+01:00"))return;
+ if(REVIEWS.length||Date.now()>=LOS)return;
  var gb=$("gaestebuch");if(gb)gb.hidden=true;
  [].forEach.call(document.querySelectorAll('a[href="#gaestebuch"]'),function(a){a.hidden=true});
 })();
