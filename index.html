@@ -440,6 +440,55 @@ html.ptr .kcard:has(.kopen:focus-visible){outline:none}
 .kcard .step{background:#FBF5EC;border-color:#FBF5EC}
 @media (hover:none){.btn-dark:hover,.kadd:hover,.pill:hover,.kcard .kprice .btn-dark:hover{background:#4E6A52 !important}.step button:hover{background:#4E6A52 !important}}
 
+/* ===== Kacheln mit Detailbereich unter der Reihe (Nov 2026) ===== */
+.kcard{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-start;aspect-ratio:auto;background:#2B251E;color:#FBF5EC;border-radius:22px;overflow:hidden;box-shadow:0 10px 24px rgba(43,37,30,.16);transition:transform 200ms cubic-bezier(.16,1,.3,1),box-shadow 200ms ease}
+.kcard:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(43,37,30,.24)}
+.kcard.on{box-shadow:0 0 0 3px #F3E9DA,0 0 0 6px #4E6A52;transform:none}
+.kcard:has(.kbtn:focus-visible){outline:3px solid #2B251E;outline-offset:3px}
+.kmedia{position:relative;inset:auto;aspect-ratio:1/1;z-index:0;background:#4A4034;overflow:hidden}
+.kmedia img{width:100%;height:100%;object-fit:cover;display:block}
+.kbody{display:flex;flex-direction:column;gap:10px;padding:14px 16px 16px;flex:1}
+.kcard .kname{margin:0;color:#FBF5EC;font-size:19px;line-height:1.15;font-weight:800;font-stretch:112%;text-shadow:none;overflow-wrap:anywhere;hyphens:none}
+.kbtn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:0 14px;border:0;border-radius:999px;background:#4E6A52;color:#FBF5EC;font:700 15px Archivo,sans-serif;cursor:pointer;transition:background-color 150ms ease}
+.kbtn:hover{background:#5A785E}
+.kbtn.drin{background:#FBF5EC;color:#2B251E}
+.kbtn.drin:hover{background:#FFFFFF}
+.kbtn svg{width:18px;height:18px;fill:none;stroke:#4E6A52;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.kbtn::after{content:"";position:absolute;inset:0;z-index:1}
+.kbtn:focus-visible{outline:none}
+.kdetail{grid-column:1/-1;position:relative;background:#FBF5EC;color:#2B251E;border-radius:24px;padding:28px 32px 30px;box-shadow:0 12px 30px rgba(43,37,30,.10);animation:kdauf 260ms cubic-bezier(.16,1,.3,1)}
+.kdetail[hidden]{display:none}
+.kdinner{display:flex;flex-wrap:wrap;gap:24px 40px}
+.kdinner>div:first-child{flex:1 1 300px !important;min-width:0}
+.kdinner>div:last-child{flex:1.3 1 360px;min-width:0}
+.kdetail .kclose{position:absolute;top:14px;right:14px;z-index:3;background:#F3E9DA}
+@keyframes kdauf{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (max-width:719px){
+ .kcard{border-radius:18px}
+ .kbody{padding:10px 10px 12px;gap:8px}
+ .kcard .kname{font-size:15px}
+ .kbtn{min-height:38px;font-size:13.5px;padding:0 8px}
+ .kbtn svg{width:16px;height:16px}
+ .kdetail{padding:22px 16px 20px;border-radius:20px}
+ .kdetail .kclose{top:8px;right:8px}
+}
+@media (prefers-reduced-motion:reduce){.kdetail{animation:none}.kcard{transition:none}}
+@media (hover:none){.kcard:hover{transform:none}.kbtn:hover{background:#4E6A52}.kbtn.drin:hover{background:#FBF5EC}}
+/* Kompaktes Glas: Bild über die ganze Kachel, schmaler Glasstreifen unten */
+.kcard{justify-content:flex-end;aspect-ratio:3/4}
+.kmedia{position:absolute;inset:0;aspect-ratio:auto}
+.kbody{position:relative;flex:none;padding:34px 16px 14px;gap:8px}
+.kbody::before{content:"";position:absolute;inset:0;z-index:0;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);background:linear-gradient(to bottom,rgba(30,26,21,0) 0,rgba(30,26,21,.30) 34px,rgba(30,26,21,.62) 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 34px);mask-image:linear-gradient(to bottom,transparent 0,#000 34px)}
+.kbody>*{position:relative;z-index:2}
+.kcard .kname{text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.kbtn{margin-top:0}
+.kbtn::after{position:absolute;inset:-100vh -100vw 0;z-index:1}
+.kcard{overflow:hidden}
+@media (max-width:719px){
+ .kcard{aspect-ratio:4/5}
+ .kbody{padding:26px 10px 10px;gap:6px}
+}
+
 </style>
 </head>
 <body>
@@ -557,18 +606,8 @@ html.ptr .kcard:has(.kopen:focus-visible){outline:none}
           <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #625545">* Die Preise sind Richtwerte für die Basis-Konfiguration. Den Endpreis bestimmen Material, Farbanzahl und Druckzeit – wir kalkulieren jedes Projekt maßgeschneidert und fair.</p>
         </div>
       </details>
-      <nav aria-label="Zu einem Produkt springen" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px">
-        <a href="#p-kot" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Kotbeutel-Spender</a>
-        <a href="#p-marke" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Hundemarke</a>
-        <a href="#p-dose" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Leckerli-Dose</a>
-        <a href="#p-napf" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Napf-Ständer</a>
-        <a href="#p-haken" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Leinen-Wandhaken</a>
-        <a href="#p-gadget" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Alltags-Gadgets</a>
-        <a href="#p-deko" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Deko</a>
-        <a href="#p-litho" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Lithophanie oder Relief</a>
-        <a href="#p-idee" class="chipnav" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid #2B251E; text-decoration: none; font-size: 15px; font-weight: 600">Eigene Idee</a>
-      </nav>
-      <p style="margin: -12px 0 24px; font-size: 14px; color: #625545">Alle Bilder sind Beispielbilder. Dein Produkt gestalten wir nach deinen Wünschen – es kann daher vom Bild abweichen.</p>
+      
+      <p style="margin: 0 0 24px; font-size: 14px; color: #625545">Alle Bilder sind Beispielbilder. Dein Produkt gestalten wir nach deinen Wünschen – es kann daher vom Bild abweichen.</p>
 
       <article id="p-kot" aria-labelledby="h-kot" style="border-top: 2px solid #2B251E; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
@@ -1330,63 +1369,61 @@ function gesperrt(){return Date.now()<VB_START}
  [].forEach.call(document.querySelectorAll('a[href="#gaestebuch"]'),function(a){a.hidden=true});
 })();
 
-/* ===== Kachel-Ansicht ===== */
+/* ===== Kachel-Ansicht: Klick öffnet die Details direkt unter der Kachelreihe ===== */
 (function(){
- if(typeof HTMLDialogElement!=="function"||!HTMLDialogElement.prototype.showModal)return;
  var sec=$("produkte"),arts=[].slice.call(sec.querySelectorAll('article[id^="p-"]:not(#p-idee)'));
  if(!arts.length)return;
  var grid=document.createElement("div");grid.className="kgrid";
  arts[0].parentNode.insertBefore(grid,arts[0]);
  var CLOSE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+ var cards=[],aktiv=null;
  arts.forEach(function(a){
-  var cols=a.children,left=cols[0],right=cols[1];
-  var h3=left.querySelector("h3"),img=left.querySelector('div[style*="aspect-ratio"],button.ph');
-  var priceRow=right.lastElementChild;               // Preis + Hinzufügen
-  if(priceRow.id==="nfc")priceRow=right.children[right.children.length-2];
-  var lead=right.querySelector("p");
+  var left=a.children[0],right=a.children[1];
+  var h3=left.querySelector("h3")||right.querySelector("h3"),img=left.querySelector('div[style*="aspect-ratio"],button.ph');
+  var priceRow=right.lastElementChild;if(priceRow.id==="nfc")priceRow=right.children[right.children.length-2];
+  var keys=[].map.call(right.querySelectorAll("button[data-i]"),function(b){return b.dataset.i});
   var card=document.createElement("div");card.className="kcard";
   var media=document.createElement("div");media.className="kmedia";
   var im=img.querySelector("img").cloneNode();im.removeAttribute("style");im.alt="";im.loading="lazy";im.decoding="async";var src=im.getAttribute("src");
-  if(/^(kot|marke|dose|napf-3|haken|gadget|deko|litho)/.test(src)){var ks=src.replace(/\.jpg$/,"-k.jpg");im.src=ks;im.srcset=ks+" 640w, "+src+" 1100w";im.sizes="(min-width:900px) 46vw, 82vw"}
+  if(/^(kot|marke|dose|napf-3|haken|gadget|deko|litho)/.test(src)){var ks=src.replace(/\.jpg$/,"-k.jpg");im.src=ks;im.srcset=ks+" 640w, "+src+" 1100w";im.sizes="(min-width:1100px) 23vw, 46vw"}
   media.appendChild(im);card.appendChild(media);
-  var glass=document.createElement("div");glass.className="kglass";
   var pb=priceRow.querySelector("b");
   if(pb){var pill=document.createElement("span");pill.className="kpill";pill.textContent=pb.textContent;card.appendChild(pill)}
-  glass.innerHTML='<h3 class="kname">'+h3.textContent+'</h3><p class="klead">'+lead.textContent+'</p>';
-  priceRow.classList.add("kprice");glass.appendChild(priceRow);
-  var open=document.createElement("button");open.type="button";open.className="kopen";
-  open.setAttribute("aria-label",h3.textContent+": Details und Möglichkeiten");
-  open.innerHTML='<span>Details<span class="kdx"> und Möglichkeiten</span></span>';
-  glass.appendChild(open);card.appendChild(glass);
-  // Dialog mit allen Details
-  var dlg=document.createElement("dialog");dlg.className="ksheet";dlg.setAttribute("aria-labelledby",h3.id);
-  var head=document.createElement("div");head.className="khead";
-  head.innerHTML='<button type="button" class="kclose" aria-label="Schließen">'+CLOSE+'</button>';
-  dlg.appendChild(head);
-  var inner=document.createElement("div");inner.className="kinner";inner.tabIndex=0;inner.setAttribute("role","region");inner.setAttribute("aria-label","Details");
-  left.style.flex="none";inner.appendChild(left);inner.appendChild(right);
-  var foot=document.createElement("div");foot.className="kfoot";
-  var price=priceRow.querySelector("b").textContent;
-  foot.innerHTML='<b class="kfprice">'+price+'</b><button type="button" class="fbtn kadd">Hinzufügen</button><button type="button" class="fbtn kgo">Zur Übersicht</button>';
-  foot.querySelector(".kadd").addEventListener("click",function(){var b=priceRow.querySelector("button[data-i]");if(b&&!b.hidden)b.click();else{var pl=priceRow.querySelector('[data-sd="1"]');if(pl)pl.click()}dlg.close()});
-  dlg.appendChild(inner);dlg.appendChild(foot);
-  card.appendChild(dlg);
-  open.addEventListener("click",function(){dlg.showModal();document.body.style.overflow="hidden"});
-  function close(){dlg.close()}
-  dlg.addEventListener("close",function(){document.body.style.overflow="";open.focus()});
-  head.querySelector(".kclose").addEventListener("click",close);
-  foot.querySelector(".kgo").addEventListener("click",close);
-  dlg.addEventListener("click",function(e){if(e.target===dlg)close()});
-  // Galerie (Napf-Ständer) über dem Fenster öffnen
-  dlg.addEventListener("click",function(e){if(e.target.closest("[data-g]"))dlg.close()},true);
+  var body=document.createElement("div");body.className="kbody";
+  var name=document.createElement("p");name.className="kname";name.textContent=h3.textContent;body.appendChild(name);
+  var btn=document.createElement("button");btn.type="button";btn.className="kbtn";
+  var did="kd-"+a.id.slice(2);btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-controls",did);
+  body.appendChild(btn);card.appendChild(body);
+  // Detailbereich
+  var det=document.createElement("section");det.className="kdetail";det.id=did;det.hidden=true;det.setAttribute("aria-labelledby",h3.id);
+  var x=document.createElement("button");x.type="button";x.className="kclose";x.setAttribute("aria-label",h3.textContent+": Details schließen");x.innerHTML=CLOSE;
+  var inner=document.createElement("div");inner.className="kdinner";
+  left.style.flex="";inner.appendChild(left);inner.appendChild(right);
+  det.appendChild(x);det.appendChild(inner);
+  var c={card:card,btn:btn,det:det,keys:keys,name:h3.textContent};cards.push(c);
+  btn.addEventListener("click",function(){aktiv===c?zu(true):auf(c)});
+  x.addEventListener("click",function(){zu(true)});
   grid.appendChild(card);a.remove();
  });
- // Sprung-Knöpfe öffnen die passende Kachel
- [].forEach.call(document.querySelectorAll('a.chipnav[href^="#p-"]'),function(c){
-  var id=c.getAttribute("href").slice(1);if(id==="p-idee")return;
-  c.addEventListener("click",function(e){var h=document.getElementById("h-"+id.slice(2));if(!h)return;e.preventDefault();
-   var card=h.closest(".kcard");card.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(function(){card.querySelector(".kopen").click()},450)});
- });
+ function spalten(){return getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length||1}
+ function platzieren(c){var i=cards.indexOf(c),n=spalten(),ende=Math.min(Math.floor(i/n)*n+n-1,cards.length-1);
+  cards[ende].card.after(c.det)}
+ function auf(c){
+  if(aktiv)schliessen(aktiv);
+  aktiv=c;platzieren(c);c.det.hidden=false;c.card.classList.add("on");c.btn.setAttribute("aria-expanded","true");
+  var r=c.det.getBoundingClientRect(),vh=innerHeight;
+  if(r.top<80||r.top>vh*0.55)c.card.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+ }
+ function schliessen(c){c.det.hidden=true;c.card.classList.remove("on");c.btn.setAttribute("aria-expanded","false");grid.appendChild(c.det)}
+ function zu(fokus){if(!aktiv)return;var c=aktiv;schliessen(c);aktiv=null;if(fokus)c.btn.focus()}
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&aktiv&&!document.querySelector("dialog[open]"))zu(true)});
+ addEventListener("resize",function(){if(aktiv)platzieren(aktiv)});
+ // Knopf auf der Kachel zeigt die Menge
+ function beschriften(){cards.forEach(function(c){var q=0;c.keys.forEach(function(k){var t=findIt(k);if(t)q+=t.qty});var it=q?{qty:q}:null;
+  c.btn.classList.toggle("drin",!!it);
+  c.btn.innerHTML=it?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'+it.qty+'× ausgewählt':'Ansehen';
+  c.btn.setAttribute("aria-label",c.name+(it?": "+it.qty+" ausgewählt, Details ansehen":": Details ansehen"))})}
+ var alt=render;render=function(){alt();beschriften()};beschriften();
 })();
 
 /* ===== Markierungsrahmen nur bei Tastatur-Bedienung ===== */
