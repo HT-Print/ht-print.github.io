@@ -489,6 +489,27 @@ html.ptr .kcard:has(.kopen:focus-visible){outline:none}
  .kbody{padding:26px 10px 10px;gap:6px}
 }
 
+/* Details als Fenster vor der Seite, Rest 25 % abgedunkelt */
+.kdetail{grid-column:auto;position:fixed;inset:0;margin:auto;width:min(980px,92vw);max-width:none;max-height:86vh;overflow:auto;overscroll-behavior:contain;border:0;padding:30px 34px 32px;border-radius:24px;background:#FBF5EC;color:#2B251E;box-shadow:0 30px 80px rgba(30,26,21,.35)}
+.kdetail:not([open]){display:none}
+.kdetail::backdrop{background:rgba(30,26,21,.25)}
+.kdetail .kclose{position:sticky;top:0;float:right;margin:-14px -18px 0 12px}
+html.kzu{overflow:hidden}
+@keyframes kdauf{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.kdetail[open]{animation:kdauf 240ms cubic-bezier(.16,1,.3,1)}
+@media (max-width:719px){
+ .kdetail{width:100vw;max-height:88vh;margin:auto 0 0;border-radius:22px 22px 0 0;padding:22px 16px 24px}
+ .kdetail .kclose{margin:-12px -6px 0 10px}
+ @keyframes kdhoch{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+ .kdetail[open]{animation:kdhoch 260ms cubic-bezier(.16,1,.3,1)}
+}
+@media (prefers-reduced-motion:reduce){.kdetail[open]{animation:none}}
+
+/* Preis und Hinzufügen bleiben unten im Fenster sichtbar */
+.kfuss{position:sticky;bottom:-32px;z-index:2;margin:24px -34px -32px;padding:14px 34px 18px;background:#FBF5EC;border-top:1px solid #D8C8B0}
+.kfuss>*{margin:0 !important;padding:0 !important;border:0 !important}
+@media (max-width:719px){.kfuss{bottom:-24px;margin:20px -16px -24px;padding:12px 16px 16px}}
+
 </style>
 </head>
 <body>
@@ -1376,7 +1397,7 @@ function gesperrt(){return Date.now()<VB_START}
  var grid=document.createElement("div");grid.className="kgrid";
  arts[0].parentNode.insertBefore(grid,arts[0]);
  var CLOSE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
- var cards=[],aktiv=null;
+ var cards=[],aktiv=null,wechsel=false;
  arts.forEach(function(a){
   var left=a.children[0],right=a.children[1];
   var h3=left.querySelector("h3")||right.querySelector("h3"),img=left.querySelector('div[style*="aspect-ratio"],button.ph');
@@ -1395,29 +1416,33 @@ function gesperrt(){return Date.now()<VB_START}
   var did="kd-"+a.id.slice(2);btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-controls",did);
   body.appendChild(btn);card.appendChild(body);
   // Detailbereich
-  var det=document.createElement("section");det.className="kdetail";det.id=did;det.hidden=true;det.setAttribute("aria-labelledby",h3.id);
+  var det=document.createElement("dialog");det.className="kdetail";det.id=did;det.setAttribute("aria-labelledby",h3.id);
   var x=document.createElement("button");x.type="button";x.className="kclose";x.setAttribute("aria-label",h3.textContent+": Details schließen");x.innerHTML=CLOSE;
   var inner=document.createElement("div");inner.className="kdinner";
   left.style.flex="";inner.appendChild(left);inner.appendChild(right);
   det.appendChild(x);det.appendChild(inner);
+  var fuss=document.createElement("div");fuss.className="kfuss";fuss.appendChild(priceRow);det.appendChild(fuss);
   var c={card:card,btn:btn,det:det,keys:keys,name:h3.textContent};cards.push(c);
-  btn.addEventListener("click",function(){aktiv===c?zu(true):auf(c)});
-  x.addEventListener("click",function(){zu(true)});
+  btn.addEventListener("click",function(){auf(c)});
+  x.addEventListener("click",function(){det.close()});
+  det.addEventListener("close",function(){card.classList.remove("on");btn.setAttribute("aria-expanded","false");document.documentElement.classList.remove("kzu");if(aktiv===c)aktiv=null;if(!wechsel)btn.focus()});
+  // Klick neben das Fenster: schließen, und liegt dort eine andere Kachel, diese öffnen
+  det.addEventListener("click",function(e){if(e.target!==det)return;var r=det.getBoundingClientRect();
+   if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom)return;
+   var px=e.clientX,py=e.clientY;wechsel=true;det.close();wechsel=false;
+   var el=document.elementFromPoint(px,py),kc=el&&el.closest(".kcard");
+   if(kc){var z=cards.filter(function(k){return k.card===kc})[0];if(z&&z!==c){auf(z);return}}btn.focus()});
+  // Galerie (Napf-Ständer) über dem Fenster öffnen
+  det.addEventListener("click",function(e){if(e.target.closest("[data-g]")){wechsel=true;det.close();wechsel=false}},true);
+  grid.after(det);
   grid.appendChild(card);a.remove();
  });
- function spalten(){return getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length||1}
- function platzieren(c){var i=cards.indexOf(c),n=spalten(),ende=Math.min(Math.floor(i/n)*n+n-1,cards.length-1);
-  cards[ende].card.after(c.det)}
  function auf(c){
-  if(aktiv)schliessen(aktiv);
-  aktiv=c;platzieren(c);c.det.hidden=false;c.card.classList.add("on");c.btn.setAttribute("aria-expanded","true");
-  var r=c.det.getBoundingClientRect(),vh=innerHeight;
-  if(r.top<80||r.top>vh*0.55)c.card.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+  if(aktiv&&aktiv!==c){wechsel=true;aktiv.det.close();wechsel=false}
+  aktiv=c;c.card.classList.add("on");c.btn.setAttribute("aria-expanded","true");
+  document.documentElement.classList.add("kzu");
+  if(!c.det.open)c.det.showModal();c.det.scrollTop=0;var x=c.det.querySelector(".kclose");if(x)x.focus();
  }
- function schliessen(c){c.det.hidden=true;c.card.classList.remove("on");c.btn.setAttribute("aria-expanded","false");grid.appendChild(c.det)}
- function zu(fokus){if(!aktiv)return;var c=aktiv;schliessen(c);aktiv=null;if(fokus)c.btn.focus()}
- document.addEventListener("keydown",function(e){if(e.key==="Escape"&&aktiv&&!document.querySelector("dialog[open]"))zu(true)});
- addEventListener("resize",function(){if(aktiv)platzieren(aktiv)});
  // Knopf auf der Kachel zeigt die Menge
  function beschriften(){cards.forEach(function(c){var q=0;c.keys.forEach(function(k){var t=findIt(k);if(t)q+=t.qty});var it=q?{qty:q}:null;
   c.btn.classList.toggle("drin",!!it);
