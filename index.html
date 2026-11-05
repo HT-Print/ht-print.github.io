@@ -860,7 +860,7 @@ html.kzu{overflow:hidden}
 
       <article id="p-deko" aria-labelledby="h-deko" style="border-top: 1px solid #BCAC93; padding: 32px 0 36px; display: flex; flex-wrap: wrap; gap: 24px 56px">
         <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-          <div style="aspect-ratio: 4 / 3; position: relative; background: #D8C8B0; overflow: hidden"><img loading="lazy" decoding="async" src="deko-1.jpg" alt="Hundefiguren als Saison-Deko: mit Hexenhut, Hasenohren, Rentiergeweih, Weihnachtsmütze, als Gespenst und im Kürbis, dazu eine Schneekugel und ein Knochen-Anhänger" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
+          <div style="aspect-ratio: 4 / 3; position: relative; background: #D8C8B0; overflow: hidden"><img loading="lazy" decoding="async" src="deko-1.jpg" alt="3D-gedruckte Hundedeko auf einem Holztisch: Skulptur einer Frau, die ihren Hund küsst, runde Wandscheibe mit Hund unter einem Baum, Schriftzug LOVE mit Pfote, Hund aus Linien, Low-Poly-Hunde, Welpe mit fließendem Fell, Japandi-Welpe und Dekoteller" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></div>
           <h3 id="h-deko" style="margin: 0; font-size: 30px; line-height: 1.1; font-weight: 800; font-stretch: 125%">Deko</h3>
         </div>
         <div style="flex: 1.35 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
@@ -1406,7 +1406,7 @@ function gesperrt(){return Date.now()<VB_START}
   var card=document.createElement("div");card.className="kcard";
   var media=document.createElement("div");media.className="kmedia";
   var im=img.querySelector("img").cloneNode();im.removeAttribute("style");im.alt="";im.loading="lazy";im.decoding="async";var src=im.getAttribute("src");
-  if(/^(kot|marke|dose|napf-3|haken|gadget|deko|litho)/.test(src)){var ks=src.replace(/\.jpg$/,"-k.jpg");im.src=ks;im.srcset=ks+" 640w, "+src+" 1100w";im.sizes="(min-width:1100px) 23vw, 46vw"}
+  if(/^(kot|marke|dose|napf-3|haken|gadget|deko|litho)/.test(src)){var ks=src.replace(/\.jpg$/,"-k.jpg");im.src=ks;im.srcset=ks+" 640w, "+src+" 1100w";im.sizes="(min-width:1100px) 23vw, 46vw"}   if(/^deko/.test(src)){im.src="deko-1-karte.jpg";im.removeAttribute("srcset");im.removeAttribute("sizes")}
   media.appendChild(im);card.appendChild(media);
   var pb=priceRow.querySelector("b");
   if(pb){var pill=document.createElement("span");pill.className="kpill";pill.textContent=pb.textContent;card.appendChild(pill)}
