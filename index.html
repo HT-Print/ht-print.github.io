@@ -528,6 +528,15 @@ html.kzu{overflow:hidden}
  .kdetail .kclose{margin:-12px -6px -32px auto}
  .bv img{max-width:100vw;max-height:80vh;border-radius:0}
 }
+
+/* Standardgrößen Lithophanie und Relief */
+.gr{margin:0;display:grid;grid-template-columns:auto 1fr;border-top:1px solid #E2D4BE}
+.gr dt,.gr dd{margin:0;padding:9px 0;border-bottom:1px solid #E2D4BE;font-size:15px;line-height:1.35}
+.gr dt{font-weight:700;padding-right:18px}
+.gr dd{display:flex;flex-wrap:wrap;gap:4px 16px}
+.gr span{white-space:nowrap}
+.gr i{font-style:normal;color:#4E6A52;font-weight:700;margin-right:4px}
+@media (max-width:719px){.gr{grid-template-columns:1fr}.gr dt{border-bottom:0;padding-bottom:2px}.gr dd{padding-top:0}}
 </style>
 </head>
 <body>
@@ -925,6 +934,17 @@ html.kzu{overflow:hidden}
               <li style="background: #FBF5EC; padding: 6px 12px; font-size: 15px">Herz</li>
               <li class="more-chip" style="padding: 6px 12px; font-size: 15px">und vieles mehr</li>
             </ul>
+          </div>
+          <div>
+            <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">Standardgrößen</h4>
+            <dl class="gr">
+              <dt>Rechteckig</dt><dd><span><i>Klein</i> 9 × 12 cm</span><span><i>Mittel</i> 12 × 16 cm</span><span><i>Groß</i> 15 × 20 cm</span></dd>
+              <dt>Quadratisch</dt><dd><span><i>Klein</i> 10 × 10 cm</span><span><i>Groß</i> 15 × 15 cm</span></dd>
+              <dt>Rund</dt><dd><span><i>Klein</i> Ø 10 cm</span><span><i>Groß</i> Ø 15 cm</span></dd>
+              <dt>Herz</dt><dd><span><i>Klein</i> 10 cm breit</span><span><i>Groß</i> 15 cm breit</span></dd>
+              <dt>Zylinder</dt><dd><span><i>Klein</i> Ø 8 cm, 10 cm hoch</span><span><i>Groß</i> Ø 10 cm, 15 cm hoch</span></dd>
+            </dl>
+            <p style="margin: 10px 0 0; font-size: 15px; color: #625545">Andere Größen und Formen gerne auf Anfrage.</p>
           </div>
           <div>
             <h4 style="margin: 0 0 10px; font-size: 16px; font-weight: 800">Das kannst du anpassen</h4>
